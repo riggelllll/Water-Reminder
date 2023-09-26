@@ -1,8 +1,10 @@
 package com.koniukhov.waterreminder
 
-import org.junit.Test
-
-import org.junit.Assert.*
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Assertions
+import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.RepeatedTest
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -10,8 +12,10 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 class ExampleUnitTest {
-    @Test
+    @RepeatedTest(3)
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+        val a = 2
+        val b = 2
+        assertThat(a, equalTo(b))
     }
 }
