@@ -6,4 +6,10 @@
     </style>
 
     <style name="Theme.WaterReminder" parent="Base.Theme.WaterReminder" />
+
+    <style name="Theme.WaterReminder.MySplash" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
+        <item name="postSplashScreenTheme">@style/Theme.WaterReminder</item>
+    </style>
 </resources>
