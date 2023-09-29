@@ -5,11 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import com.koniukhov.waterreminder.databinding.DrinkFragmentBinding
+import com.koniukhov.waterreminder.databinding.HomeFragmentBinding
 
-class DrinkFragment : Fragment() {
+class HomeFragment : Fragment() {
 
-    private var _binding: DrinkFragmentBinding? = null
+    private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
@@ -17,7 +17,7 @@ class DrinkFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = DrinkFragmentBinding.inflate(inflater, container, false)
+        _binding = HomeFragmentBinding.inflate(inflater, container, false)
         return binding.root
     }
 
