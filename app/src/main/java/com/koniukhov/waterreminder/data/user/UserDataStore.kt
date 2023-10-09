@@ -1,4 +1,4 @@
-package com.koniukhov.waterreminder.data
+package com.koniukhov.waterreminder.data.user
 
 import android.content.Context
 import androidx.datastore.core.DataStore
@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.DEFAULT_REMINDER_INTERVAL
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalTime
@@ -91,6 +92,20 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
     suspend fun updateIsFirstOpening(value: Boolean){
         preferencesDatastore.edit { preferences ->
             preferences[IS_FIRST_OPENING] = value
+        }
+    }
+
+
+    suspend fun saveUser(weight: Int, sex: Sex, wakeUpTime: LocalTime, bedTime: LocalTime, waterLimitPerDay: Int){
+        preferencesDatastore.edit { preferences ->
+            preferences[WEIGHT] = weight
+            preferences[SEX] = sex.sex
+            preferences[WAKE_UP_TIME] = wakeUpTime.toSecondOfDay()
+            preferences[BED_TIME] = bedTime.toSecondOfDay()
+            preferences[IS_REMIND] = true
+            preferences[REMINDER_INTERVAL] = DEFAULT_REMINDER_INTERVAL
+            preferences[WATER_LIMIT_PER_DAY] = waterLimitPerDay
+            preferences[IS_FIRST_OPENING] = false
         }
     }
 }

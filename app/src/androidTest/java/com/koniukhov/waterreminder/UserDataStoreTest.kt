@@ -4,21 +4,16 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.koniukhov.waterreminder.data.Sex
-import com.koniukhov.waterreminder.data.UserDataStore
-import com.koniukhov.waterreminder.data.UserPreferences
-import com.koniukhov.waterreminder.data.dataStore
-import kotlinx.coroutines.Dispatchers
+import com.koniukhov.waterreminder.data.user.Sex
+import com.koniukhov.waterreminder.data.user.UserDataStore
+import com.koniukhov.waterreminder.data.user.UserPreferences
+import com.koniukhov.waterreminder.data.user.dataStore
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.test.StandardTestDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runTest
-import kotlinx.coroutines.test.setMain
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.After
-import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.time.LocalTime
@@ -43,7 +38,7 @@ class UserDataStoreTest {
         LocalTime.of(6, 0),
         LocalTime.of(22,0),
         true,
-        reminderInterval = 3,
+        reminderInterval = 2,
         waterLimitPerDay = 1500,
         isFirstOpening = false
     )
@@ -84,7 +79,7 @@ class UserDataStoreTest {
         myDataStore.updateWakeUpTime(6, 0)
         myDataStore.updateBedTime(22, 0)
         myDataStore.updateIsRemind(true)
-        myDataStore.updateReminderInterval(3)
+        myDataStore.updateReminderInterval(2)
         myDataStore.updateWaterLimitPerDay(1500)
         myDataStore.updateIsFirstOpening(false)
 
@@ -99,5 +94,15 @@ class UserDataStoreTest {
 
         val currentPreferences: UserPreferences = myDataStore.userPreferencesFlow.first()
         assertThat(currentPreferences, equalTo(expectedChangedUserPreferences))
+    }
+
+    @Test
+    fun testSaveUser() = runTest {
+
+        myDataStore.saveUser(80, Sex.MALE, LocalTime.of(6,0),
+            LocalTime.of(22, 0),1500)
+
+        val currentPreferences: UserPreferences = myDataStore.userPreferencesFlow.first()
+        assertThat(currentPreferences, equalTo(expectedCreatedUserPreferences))
     }
 }

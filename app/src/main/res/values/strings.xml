@@ -4,4 +4,19 @@
     <string name="home_label">Home</string>
     <string name="statistics_label">Statistics</string>
     <string name="settings_label">Settings</string>
+    <string name="btn_next_text">Next</string>
+    <string name="starter_intro_text">In order to calculate the amount of water you consume, you must provide some information about you.</string>
+    <string name="starter_intro_title">Your personal companion</string>
+    <string name="male_text">Male</string>
+    <string name="female_text">Female</string>
+    <string name="starter_gender_title">Your gender</string>
+    <string name="starter_weight_title">Your weight</string>
+    <string name="starter_wakeup_title">Wake-up Time</string>
+    <string name="starter_sleep_title">Sleep Time</string>
+
+    <string name="notification_title">Time to drink water</string>
+    <string name="notification_text">Please drink the required amount of water.</string>
+
+    <string name="permission_granted">Permission granted</string>
+    <string name="permission_denied">Permission denied</string>
 </resources>

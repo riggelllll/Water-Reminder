@@ -44,13 +44,13 @@ android {
 }
 
 dependencies {
-    val nav_version = "2.7.3"
+    val nav_version = "2.7.4"
     val room_version = "2.5.2"
     val mockkVersion = "1.13.8"
 
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.9.0")
+    implementation("com.google.android.material:material:1.10.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
 
     implementation("androidx.navigation:navigation-fragment-ktx:$nav_version")
@@ -62,6 +62,8 @@ dependencies {
     implementation("androidx.room:room-ktx:$room_version")
 
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    implementation("androidx.work:work-runtime-ktx:2.8.1")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
 

@@ -1,4 +1,4 @@
-package com.koniukhov.waterreminder.data
+package com.koniukhov.waterreminder.data.user
 
 import java.time.LocalTime
 
