@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
+import com.koniukhov.waterreminder.R
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.StarterFragmentBinding
@@ -17,7 +18,7 @@ class StarterFragment : Fragment() {
     private var _binding: StarterFragmentBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: StarterViewModel by viewModels{StarterViewModel.StarterViewModelFactory(findNavController(),
+    private val viewModel: StarterViewModel by viewModels{StarterViewModel.StarterViewModelFactory(
         UserDataStore(requireContext().dataStore), requireActivity().application)}
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -33,10 +34,20 @@ class StarterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.hasToNavigate.observe(viewLifecycleOwner) {
+            if (it) {
+                navigateToHome()
+            }
+        }
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun navigateToHome(){
+        findNavController().navigate(R.id.action_starterFragment_to_homeFragment)
     }
 }

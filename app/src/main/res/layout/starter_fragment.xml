@@ -65,6 +65,7 @@
             android:weightSum="2"
             android:gravity="center_vertical">
             <LinearLayout
+                android:id="@+id/layout_male"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
@@ -85,6 +86,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout_female"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"

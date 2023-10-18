@@ -77,8 +77,16 @@ dependencies {
     testImplementation("org.hamcrest:hamcrest-integration:1.3")
     testImplementation("org.hamcrest:hamcrest-library:2.2")
 
+    androidTestImplementation("androidx.test:core:1.5.0")
+    androidTestImplementation("androidx.test:runner:1.5.2")
+    androidTestImplementation("androidx.test:rules:1.5.0")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
+    androidTestImplementation("androidx.test.ext:truth:1.5.0")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation("androidx.navigation:navigation-testing:$nav_version")
     androidTestImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.5.2")
+    androidTestImplementation( "androidx.test.espresso:espresso-idling-resource:3.5.1")
+
+    debugImplementation("androidx.fragment:fragment-testing:1.6.1")
 }
