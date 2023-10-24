@@ -73,8 +73,8 @@
                 android:alpha='@{viewModel.maleLayoutAlpha}'
                 android:onClick='@{() -> viewModel.setSex(Sex.MALE)}'>
                 <ImageView
-                    android:layout_width="@dimen/intro_sex_image_size"
-                    android:layout_height="@dimen/intro_sex_image_size"
+                    android:layout_width="@dimen/intro_gender_image_size"
+                    android:layout_height="@dimen/intro_gender_image_size"
                     android:src="@drawable/male_icon"
                     android:layout_gravity="center"/>
                 <TextView
@@ -94,8 +94,8 @@
                 android:alpha='@{viewModel.femaleLayoutAlpha}'
                 android:onClick='@{() -> viewModel.setSex(Sex.FEMALE)}'>
                 <ImageView
-                    android:layout_width="@dimen/intro_sex_image_size"
-                    android:layout_height="@dimen/intro_sex_image_size"
+                    android:layout_width="@dimen/intro_gender_image_size"
+                    android:layout_height="@dimen/intro_gender_image_size"
                     android:src="@drawable/female_icon"
                     android:layout_gravity="center"/>
                 <TextView
@@ -138,8 +138,8 @@
                 android:orientation="vertical"
                 android:layout_weight="1">
                 <ImageView
-                    android:layout_width="@dimen/intro_sex_image_size"
-                    android:layout_height="@dimen/intro_sex_image_size"
+                    android:layout_width="@dimen/intro_gender_image_size"
+                    android:layout_height="@dimen/intro_gender_image_size"
                     android:src="@drawable/weight_icon"
                     android:layout_gravity="center"/>
             </LinearLayout>
@@ -150,8 +150,8 @@
                 android:orientation="vertical"
                 android:layout_weight="1">
                 <NumberPicker
-                    android:layout_width="@dimen/intro_sex_image_size"
-                    android:layout_height="@dimen/intro_sex_image_size"
+                    android:layout_width="@dimen/intro_gender_image_size"
+                    android:layout_height="@dimen/intro_gender_image_size"
                     android:layout_gravity="center"
                     android:descendantFocusability="blocksDescendants"
                     app:minValue="@{viewModel.WEIGHT_MIN}"
