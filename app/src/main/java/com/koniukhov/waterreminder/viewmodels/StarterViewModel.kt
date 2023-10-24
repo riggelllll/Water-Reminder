@@ -1,32 +1,21 @@
 package com.koniukhov.waterreminder.viewmodels
 
-import android.annotation.SuppressLint
 import android.app.Application
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.NavController
-import androidx.work.Constraints
-import androidx.work.Data
-import androidx.work.ExistingPeriodicWorkPolicy
-import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
-import com.koniukhov.waterreminder.R
 import com.koniukhov.waterreminder.data.user.Sex
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.utilities.WaterHelper
-import com.koniukhov.waterreminder.workers.NotificationWorker
-import com.koniukhov.waterreminder.workers.TAG
+import com.koniukhov.waterreminder.utilities.WorkerUtils
 import kotlinx.coroutines.launch
 import java.time.LocalTime
 import java.util.LinkedList
 import java.util.Queue
-import java.util.concurrent.TimeUnit
 
-class StarterViewModel(private val navController: NavController,
-                       private val dataStore: UserDataStore,
+class StarterViewModel(private val dataStore: UserDataStore,
                        application: Application) : ViewModel() {
 
     companion object{
@@ -55,53 +44,45 @@ class StarterViewModel(private val navController: NavController,
     private var _wakeUpTime: LocalTime = LocalTime.of(DEFAULT_WAKE_UP_HOUR, DEFAULT_MINUTE)
     private var _bedTime: LocalTime = LocalTime.of(DEFAULT_BED_HOUR, DEFAULT_MINUTE)
 
-    private var _maleLayoutAlpha = MutableLiveData(DEFAULT_SEX_ALPHA)
-    val maleLayoutAlpha: LiveData<Float>
-    get() = _maleLayoutAlpha
-    private var _femaleLayoutAlpha = MutableLiveData(DEFAULT_SEX_ALPHA)
-    val femaleLayoutAlpha: LiveData<Float>
-        get() = _femaleLayoutAlpha
-
-    private var _isIntroLayoutVisible = MutableLiveData(true)
-    val isIntroLayoutVisible: LiveData<Boolean>
-    get() = _isIntroLayoutVisible
-
-    private var _isSexLayoutVisible = MutableLiveData(false)
-    val isSexLayoutVisible: LiveData<Boolean>
-        get() = _isSexLayoutVisible
-
-    private var _isWeightLayoutVisible = MutableLiveData(false)
-    val isWeightLayoutVisible: LiveData<Boolean>
-        get() = _isWeightLayoutVisible
-
-    private var _isTimeLayoutVisible = MutableLiveData(false)
-    val isTimeLayoutVisible: LiveData<Boolean>
-        get() = _isTimeLayoutVisible
+    var maleLayoutAlpha = MutableLiveData(DEFAULT_SEX_ALPHA)
+    private set
+    var femaleLayoutAlpha = MutableLiveData(DEFAULT_SEX_ALPHA)
+    private set
+    var isIntroLayoutVisible = MutableLiveData(true)
+    private set
+    var isSexLayoutVisible = MutableLiveData(false)
+    private set
+    var isWeightLayoutVisible = MutableLiveData(false)
+    private set
+    var isTimeLayoutVisible = MutableLiveData(false)
+    private set
 
     private val actionsQueue: Queue<() ->Unit> = LinkedList()
 
-
     private val actionHideIntroShowSex: (() -> Unit) = {
-        _isIntroLayoutVisible.value = false
-        _isSexLayoutVisible.value = true
+        isIntroLayoutVisible.value = false
+        isSexLayoutVisible.value = true
     }
 
     private val actionHideSexSHowWeight: (() -> Unit) = {
-        _isSexLayoutVisible.value = false
-        _isWeightLayoutVisible.value = true
+        isSexLayoutVisible.value = false
+        isWeightLayoutVisible.value = true
     }
 
     private val actionHideWeightShowTime: (() -> Unit) = {
-        _isWeightLayoutVisible.value = false
-        _isTimeLayoutVisible.value = true
+        isWeightLayoutVisible.value = false
+        isTimeLayoutVisible.value = true
     }
+
+    var hasToNavigate: MutableLiveData<Boolean> = MutableLiveData(false)
+    private set
 
     private val actionGoToHomeFragment: (() -> Unit) = {
         viewModelScope.launch{
             val limitPerDay = WaterHelper.calculateWaterAmount(_sex, _weight)
             dataStore.saveUser(_weight, _sex, _wakeUpTime, _bedTime, limitPerDay)
-            registerNotification(_wakeUpTime, _bedTime)
-            navController.navigate(R.id.action_starterFragment_to_homeFragment)
+            WorkerUtils.registerNotification(workManager, DEFAULT_REMINDER_INTERVAL.toLong(), _wakeUpTime, _bedTime)
+            hasToNavigate.value = true
         }
     }
 
@@ -125,15 +106,15 @@ class StarterViewModel(private val navController: NavController,
         resetSexLayoutsAlpha()
 
         if (sex == Sex.MALE){
-            _maleLayoutAlpha.value = 1f
+            maleLayoutAlpha.value = 1f
         }else{
-            _femaleLayoutAlpha.value = 1f
+            femaleLayoutAlpha.value = 1f
         }
     }
 
     private fun resetSexLayoutsAlpha(){
-        _maleLayoutAlpha.value = 0.5f
-        _femaleLayoutAlpha.value = 0.5f
+        maleLayoutAlpha.value = 0.5f
+        femaleLayoutAlpha.value = 0.5f
     }
 
     fun setWeight(value: Int){
@@ -156,32 +137,12 @@ class StarterViewModel(private val navController: NavController,
         _bedTime = _bedTime.withMinute(minute)
     }
 
-    @SuppressLint("RestrictedApi")
-    private fun registerNotification(wakeUpTime:LocalTime, bedTime: LocalTime){
-        val periodicWork = PeriodicWorkRequest.Builder(NotificationWorker::class.java, DEFAULT_REMINDER_INTERVAL.toLong(), TimeUnit.HOURS)
-        val constraints = Constraints.Builder()
-            .setRequiresBatteryNotLow(true)
-            .build()
-
-        val data = Data.Builder()
-        with(data) {
-            putInt(WAKE_UP_EXTRA, wakeUpTime.toSecondOfDay())
-            putInt(BED_TIME_EXTRA, bedTime.toSecondOfDay())
-        }
-
-        periodicWork.setInputData(data.build())
-        periodicWork.setConstraints(constraints)
-        periodicWork.setInitialDelay(DEFAULT_REMINDER_INTERVAL.toLong(), TimeUnit.HOURS)
-        workManager.enqueueUniquePeriodicWork(TAG, ExistingPeriodicWorkPolicy.KEEP, periodicWork.build())
-    }
-
-    class StarterViewModelFactory(private val navController: NavController,
-                                  private val dataStore: UserDataStore,
+    class StarterViewModelFactory(private val dataStore: UserDataStore,
                                   private val application: Application) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
             if (modelClass.isAssignableFrom(StarterViewModel::class.java)) {
                 @Suppress("UNCHECKED_CAST")
-                return StarterViewModel(navController, dataStore, application) as T
+                return StarterViewModel(dataStore, application) as T
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
