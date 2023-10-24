@@ -47,7 +47,7 @@ dependencies {
     val nav_version = "2.7.4"
     val room_version = "2.5.2"
     val mockkVersion = "1.13.8"
-
+    val lifecycle_version = "2.6.2"
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.10.0")
@@ -66,6 +66,8 @@ dependencies {
     implementation("androidx.work:work-runtime-ktx:2.8.1")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")

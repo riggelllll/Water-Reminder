@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="half_padding">8dp</dimen>
     <dimen name="base_padding">8dp</dimen>
     <dimen name="base_margin">8dp</dimen>
+    <dimen name="settings_margin">16dp</dimen>
+    <dimen name="dialog_padding">24dp</dimen>
+    <dimen name="radius">28dp</dimen>
 
-    <dimen name="intro_sex_image_size">100dp</dimen>
+    <dimen name="intro_gender_image_size">100dp</dimen>
 </resources>

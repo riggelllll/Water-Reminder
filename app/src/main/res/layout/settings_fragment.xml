@@ -1,16 +1,156 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.koniukhov.waterreminder.viewmodels.MainViewModel" />
+        <variable
+            name="fragment"
+            type="com.koniukhov.waterreminder.fragments.SettingsFragment" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="SettingsFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Theme.WaterReminder.SettingsLayout">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/need_a_reminder_title"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"/>
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/is_reminder_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:onCheckedChanged='@{(switch, checked) -> viewModel.changeIsRemind(checked)}'/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Theme.WaterReminder.SettingsLayout"
+                android:onClick='@{() -> fragment.showRemindIntervalDialog()}'>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/reminder_interval_title"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/remind_interval"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    tools:text="2h"
+                    style="@style/Theme.WaterReminder.SettingsValue"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Theme.WaterReminder.SettingsLayout"
+                android:onClick='@{() -> fragment.showWaterLimitDialog()}'>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/water_limit_title"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/water_limit"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    tools:text="2000ml"
+                    style="@style/Theme.WaterReminder.SettingsValue"/>
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Theme.WaterReminder.SettingsLayout"
+                android:onClick='@{() -> fragment.showChangeGenderDialog()}'>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="@string/starter_gender_title" />
+
+                <TextView
+                    android:id="@+id/sex_text"
+                    style="@style/Theme.WaterReminder.SettingsValue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    tools:text="Male" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Theme.WaterReminder.SettingsLayout"
+                android:onClick='@{() -> fragment.showWeightDialog()}'>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/starter_weight_title"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/weight_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    tools:text="80kg"
+                    style="@style/Theme.WaterReminder.SettingsValue"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Theme.WaterReminder.SettingsLayout"
+                android:onClick='@{() -> fragment.showWakeUpTimeDialog()}'>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/starter_wakeup_title"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/wake_up_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    tools:text="6:00"
+                    style="@style/Theme.WaterReminder.SettingsValue"/>
+            </RelativeLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/Theme.WaterReminder.SettingsLayout"
+                android:onClick='@{() -> fragment.showBedTimeDialog()}'>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/starter_sleep_title"
+                    android:layout_alignParentStart="true"/>
+                <TextView
+                    android:id="@+id/bed_time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    tools:text="22:00"
+                    style="@style/Theme.WaterReminder.SettingsValue"/>
+            </RelativeLayout>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.WaterReminder.SettingsValue" parent="Theme.WaterReminder">
+        <item name="android:textColor">@color/md_theme_light_primary</item>
+    </style>
+    <style name="Theme.WaterReminder.SettingsLayout" parent="Theme.WaterReminder">
+        <item name="android:paddingStart">@dimen/base_padding</item>
+        <item name="android:paddingEnd">@dimen/base_padding</item>
+        <item name="android:paddingTop">@dimen/half_padding</item>
+        <item name="android:paddingBottom">@dimen/half_padding</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+</resources>

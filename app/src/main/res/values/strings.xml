@@ -19,4 +19,19 @@
 
     <string name="permission_granted">Permission granted</string>
     <string name="permission_denied">Permission denied</string>
+    <string name="water_limit_title">Water limit</string>
+    <string name="water_limit_value">%s ml</string>
+    <string name="need_a_reminder_title">Need a reminder?</string>
+    <string name="reminder_interval_title">Reminder interval</string>
+    <string name="remind_interval_value">%s h</string>
+    <string name="weight_value">%s kg</string>
+    <string name="change_reminder_interval_title">Change reminder interval</string>
+    <string name="change_water_limit_title">Change water limit</string>
+    <string name="change_gender_title">Change gender</string>
+    <string name="change_weight_title">Change weight</string>
+    <string name="change_wake_up_time_title">Change wake up time</string>
+    <string name="change_bed_time_title">Change bed time</string>
+
+    <string name="dialog_save_btn">Save</string>
+    <string name="dialog_cancel_btn">Cancel</string>
 </resources>

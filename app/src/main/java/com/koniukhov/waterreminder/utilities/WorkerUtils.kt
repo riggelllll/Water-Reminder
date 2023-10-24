@@ -1,6 +1,7 @@
 package com.koniukhov.waterreminder.utilities
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -8,12 +9,21 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
-import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 import androidx.core.content.ContextCompat
+import androidx.work.Constraints
+import androidx.work.Data
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
 import com.koniukhov.waterreminder.MainActivity
 import com.koniukhov.waterreminder.R
+import com.koniukhov.waterreminder.viewmodels.StarterViewModel
+import com.koniukhov.waterreminder.workers.NotificationWorker
+import com.koniukhov.waterreminder.workers.NotificationWorker.Companion.NAME
+import java.time.LocalTime
+import java.util.concurrent.TimeUnit
 
 class WorkerUtils {
     companion object{
@@ -60,6 +70,25 @@ class WorkerUtils {
             }else{
                 NotificationManagerCompat.from(context).notify(NOTIFICATION_ID, builder.build())
             }
+        }
+
+        @SuppressLint("RestrictedApi")
+        fun registerNotification(workManager: WorkManager, reminderInterval: Long, wakeUpTime: LocalTime, bedTime: LocalTime){
+            val periodicWork = PeriodicWorkRequest.Builder(NotificationWorker::class.java, reminderInterval, TimeUnit.HOURS)
+            val constraints = Constraints.Builder()
+                .setRequiresBatteryNotLow(true)
+                .build()
+
+            val data = Data.Builder()
+            with(data) {
+                putInt(StarterViewModel.WAKE_UP_EXTRA, wakeUpTime.toSecondOfDay())
+                putInt(StarterViewModel.BED_TIME_EXTRA, bedTime.toSecondOfDay())
+            }
+
+            periodicWork.setInputData(data.build())
+            periodicWork.setConstraints(constraints)
+            periodicWork.setInitialDelay(reminderInterval, TimeUnit.HOURS)
+            workManager.enqueueUniquePeriodicWork(NAME, ExistingPeriodicWorkPolicy.CANCEL_AND_REENQUEUE, periodicWork.build())
         }
     }
 

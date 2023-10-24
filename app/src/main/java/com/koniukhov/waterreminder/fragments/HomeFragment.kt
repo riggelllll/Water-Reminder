@@ -1,7 +1,6 @@
 package com.koniukhov.waterreminder.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,12 +23,11 @@ class HomeFragment : Fragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val navController = findNavController()
         val userPreferences = UserDataStore(requireContext().dataStore)
 
         lifecycleScope.launch(Dispatchers.Main) {
             if (userPreferences.userPreferencesFlow.first().isFirstOpening){
-                navController.navigate(R.id.action_homeFragment_to_starterFragment)
+                findNavController().navigate(R.id.action_homeFragment_to_starterFragment)
             }
         }
     }
