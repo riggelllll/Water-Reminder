@@ -23,7 +23,7 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
 
     companion object{
         val WEIGHT = intPreferencesKey("weight")
-        val SEX = intPreferencesKey("sex")
+        val GENDER = intPreferencesKey("gender")
         val WAKE_UP_TIME = intPreferencesKey("wake_up_time")
         val BED_TIME = intPreferencesKey("bed_time")
         val IS_REMIND = booleanPreferencesKey("is_remind")
@@ -35,7 +35,7 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
     val userPreferencesFlow: Flow<UserPreferences> = preferencesDatastore.data.map { preferences ->
 
         val weight = preferences[WEIGHT] ?: 0
-        val sex = preferences[SEX] ?: 0
+        val gender = preferences[GENDER] ?: 0
         val wakeUpTime = preferences[WAKE_UP_TIME] ?: 0
         val bedTime = preferences[BED_TIME] ?: 0
         val isRemind = preferences[IS_REMIND] ?: false
@@ -43,7 +43,7 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
         val waterLimitPerDay = preferences[WATER_LIMIT_PER_DAY] ?: 0
         val isFirstOpening = preferences[IS_FIRST_OPENING] ?: true
 
-        UserPreferences(weight, Sex.from(sex)!!, LocalTime.ofSecondOfDay(wakeUpTime.toLong()),
+        UserPreferences(weight, Gender.from(gender)!!, LocalTime.ofSecondOfDay(wakeUpTime.toLong()),
             LocalTime.ofSecondOfDay(bedTime.toLong()), isRemind, reminderInterval, waterLimitPerDay, isFirstOpening)
     }
 
@@ -53,9 +53,9 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
         }
     }
 
-    suspend fun updateSex(sex: Int){
+    suspend fun updateGender(gender: Int){
         preferencesDatastore.edit {preferences ->
-            preferences[SEX] = Sex.from(sex)?.sex ?: 0
+            preferences[GENDER] = Gender.from(gender)?.gender ?: 0
         }
     }
 
@@ -96,10 +96,10 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
     }
 
 
-    suspend fun saveUser(weight: Int, sex: Sex, wakeUpTime: LocalTime, bedTime: LocalTime, waterLimitPerDay: Int){
+    suspend fun saveUser(weight: Int, sex: Gender, wakeUpTime: LocalTime, bedTime: LocalTime, waterLimitPerDay: Int){
         preferencesDatastore.edit { preferences ->
             preferences[WEIGHT] = weight
-            preferences[SEX] = sex.sex
+            preferences[GENDER] = sex.gender
             preferences[WAKE_UP_TIME] = wakeUpTime.toSecondOfDay()
             preferences[BED_TIME] = bedTime.toSecondOfDay()
             preferences[IS_REMIND] = true
@@ -110,12 +110,12 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
     }
 }
 
-enum class Sex(val sex: Int){
+enum class Gender(val gender: Int){
     MALE(0),
     FEMALE(1);
 
     companion object {
-        private val map = Sex.values().associateBy { it.sex }
+        private val map = Gender.values().associateBy { it.gender }
         fun from(value: Int) = map[value]
     }
 }

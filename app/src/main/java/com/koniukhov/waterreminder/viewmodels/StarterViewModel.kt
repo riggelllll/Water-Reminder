@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
-import com.koniukhov.waterreminder.data.user.Sex
+import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.utilities.WaterHelper
 import com.koniukhov.waterreminder.utilities.WorkerUtils
@@ -39,10 +39,10 @@ class StarterViewModel(private val dataStore: UserDataStore,
     }
 
     private val workManager = WorkManager.getInstance(application)
-    private var _sex: Sex = Sex.MALE
-    private var _weight: Int = DEFAULT_WEIGHT
-    private var _wakeUpTime: LocalTime = LocalTime.of(DEFAULT_WAKE_UP_HOUR, DEFAULT_MINUTE)
-    private var _bedTime: LocalTime = LocalTime.of(DEFAULT_BED_HOUR, DEFAULT_MINUTE)
+    private var gender: Gender = Gender.MALE
+    private var weight: Int = DEFAULT_WEIGHT
+    private var wakeUpTime: LocalTime = LocalTime.of(DEFAULT_WAKE_UP_HOUR, DEFAULT_MINUTE)
+    private var bedTime: LocalTime = LocalTime.of(DEFAULT_BED_HOUR, DEFAULT_MINUTE)
 
     var maleLayoutAlpha = MutableLiveData(DEFAULT_SEX_ALPHA)
     private set
@@ -50,7 +50,7 @@ class StarterViewModel(private val dataStore: UserDataStore,
     private set
     var isIntroLayoutVisible = MutableLiveData(true)
     private set
-    var isSexLayoutVisible = MutableLiveData(false)
+    var isGenderLayoutVisible = MutableLiveData(false)
     private set
     var isWeightLayoutVisible = MutableLiveData(false)
     private set
@@ -59,13 +59,13 @@ class StarterViewModel(private val dataStore: UserDataStore,
 
     private val actionsQueue: Queue<() ->Unit> = LinkedList()
 
-    private val actionHideIntroShowSex: (() -> Unit) = {
+    private val actionHideIntroShowGender: (() -> Unit) = {
         isIntroLayoutVisible.value = false
-        isSexLayoutVisible.value = true
+        isGenderLayoutVisible.value = true
     }
 
-    private val actionHideSexSHowWeight: (() -> Unit) = {
-        isSexLayoutVisible.value = false
+    private val actionHideGenderShowWeight: (() -> Unit) = {
+        isGenderLayoutVisible.value = false
         isWeightLayoutVisible.value = true
     }
 
@@ -79,9 +79,9 @@ class StarterViewModel(private val dataStore: UserDataStore,
 
     private val actionGoToHomeFragment: (() -> Unit) = {
         viewModelScope.launch{
-            val limitPerDay = WaterHelper.calculateWaterAmount(_sex, _weight)
-            dataStore.saveUser(_weight, _sex, _wakeUpTime, _bedTime, limitPerDay)
-            WorkerUtils.registerNotification(workManager, DEFAULT_REMINDER_INTERVAL.toLong(), _wakeUpTime, _bedTime)
+            val limitPerDay = WaterHelper.calculateWaterAmount(gender, weight)
+            dataStore.saveUser(weight, gender, wakeUpTime, bedTime, limitPerDay)
+            WorkerUtils.registerNotification(workManager, DEFAULT_REMINDER_INTERVAL.toLong(), wakeUpTime, bedTime)
             hasToNavigate.value = true
         }
     }
@@ -91,8 +91,8 @@ class StarterViewModel(private val dataStore: UserDataStore,
     }
 
     private fun initActionsQueue(){
-        actionsQueue.add(actionHideIntroShowSex)
-        actionsQueue.add(actionHideSexSHowWeight)
+        actionsQueue.add(actionHideIntroShowGender)
+        actionsQueue.add(actionHideGenderShowWeight)
         actionsQueue.add(actionHideWeightShowTime)
         actionsQueue.add(actionGoToHomeFragment)
     }
@@ -101,40 +101,40 @@ class StarterViewModel(private val dataStore: UserDataStore,
         actionsQueue.poll()?.invoke()
     }
 
-    fun setSex(sex: Sex){
-        _sex = sex
-        resetSexLayoutsAlpha()
+    fun setGender(gender: Gender){
+        this.gender = gender
+        resetGenderLayoutsAlpha()
 
-        if (sex == Sex.MALE){
+        if (gender == Gender.MALE){
             maleLayoutAlpha.value = 1f
         }else{
             femaleLayoutAlpha.value = 1f
         }
     }
 
-    private fun resetSexLayoutsAlpha(){
+    private fun resetGenderLayoutsAlpha(){
         maleLayoutAlpha.value = 0.5f
         femaleLayoutAlpha.value = 0.5f
     }
 
     fun setWeight(value: Int){
-        _weight = value
+        weight = value
     }
 
     fun setWakeUpHour(hour: Int){
-        _wakeUpTime = _wakeUpTime.withHour(hour)
+        wakeUpTime = wakeUpTime.withHour(hour)
     }
 
     fun setWakeUpMinute(minute: Int){
-        _wakeUpTime = _wakeUpTime.withMinute(minute)
+        wakeUpTime = wakeUpTime.withMinute(minute)
     }
 
     fun setBedTimeHour(hour: Int){
-        _bedTime = _bedTime.withHour(hour)
+        bedTime = bedTime.withHour(hour)
     }
 
     fun setBedTimeMinute(minute: Int){
-        _bedTime = _bedTime.withMinute(minute)
+        bedTime = bedTime.withMinute(minute)
     }
 
     class StarterViewModelFactory(private val dataStore: UserDataStore,

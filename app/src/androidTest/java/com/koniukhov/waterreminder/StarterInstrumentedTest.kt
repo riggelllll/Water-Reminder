@@ -14,7 +14,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.koniukhov.waterreminder.data.user.Sex
+import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.UserPreferences
 import com.koniukhov.waterreminder.data.user.dataStore
@@ -43,7 +43,7 @@ class StarterInstrumentedTest {
 
     private val expectedCreatedUserPreferences: UserPreferences = UserPreferences(
         60,
-        Sex.FEMALE,
+        Gender.FEMALE,
         LocalTime.of(6, 0),
         LocalTime.of(22,0),
         true,

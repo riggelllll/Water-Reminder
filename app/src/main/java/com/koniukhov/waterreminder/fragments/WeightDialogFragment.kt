@@ -45,7 +45,7 @@ class WeightDialogFragment : DialogFragment() {
 
         binding.saveBtn.setOnClickListener{
             val weight = binding.slider.value.toInt()
-            val waterLimit = WaterHelper.calculateWaterAmount(sharedViewModel.userPreferences.sex, weight)
+            val waterLimit = WaterHelper.calculateWaterAmount(sharedViewModel.userPreferences.gender, weight)
             sharedViewModel.changeWeight(weight)
             sharedViewModel.changeWaterLimit(waterLimit)
             dismiss()

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.koniukhov.waterreminder.data.user.Sex
+import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.UserPreferences
 import com.koniukhov.waterreminder.data.user.dataStore
@@ -24,7 +24,7 @@ class UserDataStoreTest {
 
     private val expectedInitialUserPreferences: UserPreferences = UserPreferences(
         0,
-        Sex.MALE,
+        Gender.MALE,
         LocalTime.of(0, 0),
         LocalTime.of(0,0),
         false,
@@ -34,7 +34,7 @@ class UserDataStoreTest {
     )
     private val expectedCreatedUserPreferences: UserPreferences = UserPreferences(
         80,
-        Sex.MALE,
+        Gender.MALE,
         LocalTime.of(6, 0),
         LocalTime.of(22,0),
         true,
@@ -45,7 +45,7 @@ class UserDataStoreTest {
 
     private val expectedChangedUserPreferences: UserPreferences = UserPreferences(
         0,
-        Sex.MALE,
+        Gender.MALE,
         LocalTime.of(0, 0),
         LocalTime.of(0,0),
         false,
@@ -75,7 +75,7 @@ class UserDataStoreTest {
     @Test
     fun testCreatedUser() = runTest {
         myDataStore.updateWeight(80)
-        myDataStore.updateSex(0)
+        myDataStore.updateGender(0)
         myDataStore.updateWakeUpTime(6, 0)
         myDataStore.updateBedTime(22, 0)
         myDataStore.updateIsRemind(true)
@@ -99,7 +99,7 @@ class UserDataStoreTest {
     @Test
     fun testSaveUser() = runTest {
 
-        myDataStore.saveUser(80, Sex.MALE, LocalTime.of(6,0),
+        myDataStore.saveUser(80, Gender.MALE, LocalTime.of(6,0),
             LocalTime.of(22, 0),1500)
 
         val currentPreferences: UserPreferences = myDataStore.userPreferencesFlow.first()

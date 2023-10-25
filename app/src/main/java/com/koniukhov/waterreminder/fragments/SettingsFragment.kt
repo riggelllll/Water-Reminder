@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.koniukhov.waterreminder.R
-import com.koniukhov.waterreminder.data.user.Sex
+import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.SettingsFragmentBinding
@@ -61,7 +61,7 @@ class SettingsFragment : Fragment() {
                     getString(R.string.water_limit_value, it.waterLimitPerDay.toString())
                 binding.remindInterval.text =
                     getString(R.string.remind_interval_value, it.reminderInterval.toString())
-                binding.sexText.text = if (it.sex == Sex.MALE) getString(R.string.male_text) else getString(R.string.female_text)
+                binding.genderText.text = if (it.gender == Gender.MALE) getString(R.string.male_text) else getString(R.string.female_text)
 
                 binding.weightText.text = getString(R.string.weight_value, it.weight.toString())
                 binding.wakeUpText.text = it.wakeUpTime.toString()

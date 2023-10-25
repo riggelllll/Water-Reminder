@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
-import com.koniukhov.waterreminder.data.user.Sex
+import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.GenderDialogFragmentBinding
@@ -38,7 +38,7 @@ class GenderDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (sharedViewModel.userPreferences.sex == Sex.MALE){
+        if (sharedViewModel.userPreferences.gender == Gender.MALE){
             binding.maleRadio.isChecked = true
         }else{
             binding.femaleRadio.isChecked = true
@@ -50,11 +50,11 @@ class GenderDialogFragment : DialogFragment() {
 
         binding.saveBtn.setOnClickListener{
             if (binding.maleRadio.isChecked){
-                sharedViewModel.changeGender(Sex.MALE)
-                sharedViewModel.changeWaterLimit(WaterHelper.calculateWaterAmount(Sex.MALE, sharedViewModel.userPreferences.weight))
+                sharedViewModel.changeGender(Gender.MALE)
+                sharedViewModel.changeWaterLimit(WaterHelper.calculateWaterAmount(Gender.MALE, sharedViewModel.userPreferences.weight))
             }else{
-                sharedViewModel.changeGender(Sex.FEMALE)
-                sharedViewModel.changeWaterLimit(WaterHelper.calculateWaterAmount(Sex.FEMALE, sharedViewModel.userPreferences.weight))
+                sharedViewModel.changeGender(Gender.FEMALE)
+                sharedViewModel.changeWaterLimit(WaterHelper.calculateWaterAmount(Gender.FEMALE, sharedViewModel.userPreferences.weight))
             }
             dismiss()
         }

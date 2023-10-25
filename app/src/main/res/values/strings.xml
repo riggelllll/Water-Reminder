@@ -12,7 +12,7 @@
     <string name="starter_gender_title">Your gender</string>
     <string name="starter_weight_title">Your weight</string>
     <string name="starter_wakeup_title">Wake-up Time</string>
-    <string name="starter_sleep_title">Sleep Time</string>
+    <string name="starter_bed_time_title">Sleep Time</string>
 
     <string name="notification_title">Time to drink water</string>
     <string name="notification_text">Please drink the required amount of water.</string>

@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
-import com.koniukhov.waterreminder.data.user.Sex
+import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.UserPreferences
 import com.koniukhov.waterreminder.utilities.WorkerUtils
@@ -57,9 +57,9 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
         }
     }
 
-    fun changeGender(value: Sex){
+    fun changeGender(value: Gender){
         viewModelScope.launch(Dispatchers.IO) {
-            dataStore.updateSex(value.sex)
+            dataStore.updateGender(value.gender)
         }
     }
 

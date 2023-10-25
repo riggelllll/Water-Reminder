@@ -4,7 +4,7 @@ import java.time.LocalTime
 
 data class UserPreferences(
     val weight: Int,
-    val sex: Sex,
+    val gender: Gender,
     val wakeUpTime: LocalTime,
     val bedTime: LocalTime,
     val isRemind: Boolean,
