@@ -18,26 +18,6 @@ import java.util.Queue
 class StarterViewModel(private val dataStore: UserDataStore,
                        application: Application) : ViewModel() {
 
-    companion object{
-        const val DEFAULT_REMINDER_INTERVAL = 2
-        const val DEFAULT_WEIGHT = 60
-        const val DEFAULT_WAKE_UP_HOUR = 6
-        const val DEFAULT_BED_HOUR = 22
-        const val DEFAULT_MINUTE = 0
-
-        const val HOUR_MIN_VALUE = 0
-        const val HOUR_MAX_VALUE = 23
-        const val MINUTE_MAX_VALUE = 59
-
-        const val WEIGHT_MIN = 1
-        const val WEIGHT_MAX = 200
-
-        const val WAKE_UP_EXTRA = "wakeUpTime"
-        const val BED_TIME_EXTRA = "bedTime"
-
-        const val DEFAULT_SEX_ALPHA = 0.5f
-    }
-
     private val workManager = WorkManager.getInstance(application)
     private var gender: Gender = Gender.MALE
     private var weight: Int = DEFAULT_WEIGHT
@@ -147,5 +127,23 @@ class StarterViewModel(private val dataStore: UserDataStore,
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
+    companion object{
+        const val DEFAULT_REMINDER_INTERVAL = 2
+        const val DEFAULT_WEIGHT = 60
+        const val DEFAULT_WAKE_UP_HOUR = 6
+        const val DEFAULT_BED_HOUR = 22
+        const val DEFAULT_MINUTE = 0
 
+        const val HOUR_MIN_VALUE = 0
+        const val HOUR_MAX_VALUE = 23
+        const val MINUTE_MAX_VALUE = 59
+
+        const val WEIGHT_MIN = 1
+        const val WEIGHT_MAX = 200
+
+        const val WAKE_UP_EXTRA = "wakeUpTime"
+        const val BED_TIME_EXTRA = "bedTime"
+
+        const val DEFAULT_SEX_ALPHA = 0.5f
+    }
 }
