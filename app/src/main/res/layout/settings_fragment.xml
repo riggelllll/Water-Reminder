@@ -40,6 +40,7 @@
                     android:onCheckedChanged='@{(switch, checked) -> viewModel.changeIsRemind(checked)}'/>
             </RelativeLayout>
             <RelativeLayout
+                android:id="@+id/remind_interval_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Theme.WaterReminder.SettingsLayout"
@@ -77,6 +78,7 @@
             </RelativeLayout>
 
             <RelativeLayout
+                android:id="@+id/gender_layout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 style="@style/Theme.WaterReminder.SettingsLayout"
