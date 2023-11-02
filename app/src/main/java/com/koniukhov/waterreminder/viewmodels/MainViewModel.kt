@@ -5,12 +5,15 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
+import com.koniukhov.waterreminder.data.drinkware.DrinkWare
 import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.UserPreferences
+import com.koniukhov.waterreminder.database.AppDataBase
 import com.koniukhov.waterreminder.utilities.WorkerUtils
 import com.koniukhov.waterreminder.workers.NotificationWorker
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 
 class MainViewModel(private val dataStore: UserDataStore, application: Application) : ViewModel() {
@@ -21,6 +24,13 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
 
     lateinit var userPreferences: UserPreferences
         private set
+
+    private val dataBase: AppDataBase by lazy { AppDataBase.getDataBase(application.applicationContext) }
+
+    private val allDrinkWares: Flow<List<DrinkWare>> by lazy {
+        dataBase.drinkWareDao().getDrinkWares()
+    }
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
             userFlow.collect{
