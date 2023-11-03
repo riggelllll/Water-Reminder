@@ -7,11 +7,11 @@ import androidx.room.PrimaryKey
 @Entity
 data class DailyWater(
     @PrimaryKey(autoGenerate = true)
-    val id: Int,
+    val id: Int?,
     @ColumnInfo(name = "volume")
     val volume: Int,
     @ColumnInfo(name = "time")
-    val time: Int,
+    val time: String,
     @ColumnInfo(name = "date")
     val date: String,
     @ColumnInfo(name = "icon_name")
