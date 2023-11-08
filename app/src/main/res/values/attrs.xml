@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="WaterProgressCircle">
+        <attr name="progress" format="integer"/>
+        <attr name="waveAmplitude" format="float"/>
+        <attr name="textCenter" format="string"/>
+        <attr name="textBottom" format="string"/>
+        <attr name="textCenterSize" format="dimension"/>
+        <attr name="textBottomSize" format="dimension"/>
+    </declare-styleable>
+</resources>

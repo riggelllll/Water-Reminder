@@ -13,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import androidx.lifecycle.lifecycleScope
 import com.koniukhov.waterreminder.R
+import com.koniukhov.waterreminder.views.WaterProgressCircle
 import kotlinx.coroutines.launch
 
 class HomeFragment : Fragment() {
@@ -43,6 +44,13 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        var p = 0
+        val progress = binding.waveLoadingView
+        progress.setOnClickListener {
+            p += 10
+            progress.setProgress(p)
+        }
     }
 
     override fun onDestroyView() {

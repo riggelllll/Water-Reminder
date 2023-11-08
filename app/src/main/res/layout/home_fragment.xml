@@ -4,13 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="HomeFragment"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <com.koniukhov.waterreminder.views.WaterProgressCircle
+        android:id="@+id/waveLoadingView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:progress="0"
+        app:textBottom="5000ml left to reach the goal"
+        app:textBottomSize="16sp"
+        app:textCenter="45% Today"
+        app:textCenterSize="24sp"
+        app:waveAmplitude="40" />
 </androidx.constraintlayout.widget.ConstraintLayout>
