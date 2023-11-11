@@ -16,8 +16,8 @@ interface DailyWaterDao {
     fun getAllByMonth(yearMonth: String): List<DailyWater>
 
     @Insert
-    fun addDailyWater(dailyWater: DailyWater)
+    suspend fun addDailyWater(dailyWater: DailyWater)
 
     @Delete
-    fun delete(dailyWater: DailyWater)
+    suspend fun delete(dailyWater: DailyWater)
 }

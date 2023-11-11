@@ -6,6 +6,8 @@
     <dimen name="settings_margin">16dp</dimen>
     <dimen name="dialog_padding">24dp</dimen>
     <dimen name="radius">28dp</dimen>
+    <dimen name="double_margin">16dp</dimen>
+    <dimen name="triple_margin">24dp</dimen>
 
     <dimen name="intro_gender_image_size">100dp</dimen>
 </resources>

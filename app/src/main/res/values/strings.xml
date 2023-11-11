@@ -34,4 +34,13 @@
 
     <string name="dialog_save_btn">Save</string>
     <string name="dialog_cancel_btn">Cancel</string>
+
+    <string name="add_custom_water_amount">Add the amount of water you drink</string>
+
+    <string name="remaining_percentage_today">%d%% Today</string>
+    <string name="remaining_amount_today">%d ml left to reach the goal</string>
+    <string name="remaining_amount_more_today">%d ml more than needed</string>
+    <string name="goal_is_reached">You have reached your goal</string>
+    
+    <string name="toast_enter_amount_of_water">Enter the amount of water you drink</string>
 </resources>
