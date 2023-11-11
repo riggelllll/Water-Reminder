@@ -117,6 +117,16 @@ class WaterProgressCircle(context: Context, attrs: AttributeSet) : View(context,
         }
     }
 
+    fun setCenterText(text: String){
+        centerText = text
+        invalidate()
+    }
+
+    fun setBottomText(text: String){
+        bottomText = text
+        invalidate()
+    }
+
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
         val width = MeasureSpec.getSize(widthMeasureSpec)
         val height = MeasureSpec.getSize(heightMeasureSpec)
