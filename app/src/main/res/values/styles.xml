@@ -6,8 +6,8 @@
     <style name="Theme.WaterReminder.SettingsLayout" parent="Theme.WaterReminder">
         <item name="android:paddingStart">@dimen/base_padding</item>
         <item name="android:paddingEnd">@dimen/base_padding</item>
-        <item name="android:paddingTop">@dimen/half_padding</item>
-        <item name="android:paddingBottom">@dimen/half_padding</item>
+        <item name="android:paddingTop">@dimen/base_padding</item>
+        <item name="android:paddingBottom">@dimen/base_padding</item>
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 </resources>

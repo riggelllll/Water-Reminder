@@ -25,18 +25,20 @@
             app:textBottomSize="16sp"
             app:textCenter="0"
             app:textCenterSize="24sp"
-            app:waveAmplitude="40" />
+            app:waveAmplitude="40"
+            android:onClick='@{() -> fragment.saveWater()}'/>
 
         <RelativeLayout
-            android:layout_width="70dp"
-            android:layout_height="70dp"
+            android:id="@+id/relativeLayout"
+            android:layout_width="@dimen/circle_button_size"
+            android:layout_height="@dimen/circle_button_size"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/circleProgress"
             android:background="@drawable/circle_background"
             android:elevation="2dp"
-            android:onClick='@{() -> fragment.showCustomWaterVolumeDialog()}'>
+            android:onClick='@{() -> fragment.showCustomWaterVolumeDialog()}'
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleProgress">
 
             <ImageView
                 android:id="@+id/custom_water_btn"
@@ -44,6 +46,35 @@
                 android:layout_height="32dp"
                 android:layout_centerInParent="true"
                 android:src="@drawable/ic_drink_ware_custom" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="@dimen/circle_button_size"
+            android:layout_height="@dimen/circle_button_size"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/circle_background"
+            android:elevation="2dp"
+            android:onClick='@{() -> fragment.showDrinkWareDialog()}'
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/circleProgress">
+
+            <ImageView
+                android:id="@+id/drink_ware_btn"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:layout_centerInParent="true"
+                android:src="@drawable/ic_drink_ware_100_ml" />
+            <ImageView
+                    android:src="@drawable/ic_update"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:background="@drawable/circle_background"
+                    android:elevation="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentEnd="true"
+                    android:layout_margin="1dp"/>
+
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

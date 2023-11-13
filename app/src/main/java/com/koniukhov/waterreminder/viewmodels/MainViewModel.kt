@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
-import com.koniukhov.waterreminder.R
 import com.koniukhov.waterreminder.data.dailywater.DailyWater
 import com.koniukhov.waterreminder.data.drinkware.DrinkWare
 import com.koniukhov.waterreminder.data.user.Gender
@@ -16,10 +15,10 @@ import com.koniukhov.waterreminder.database.AppDataBase
 import com.koniukhov.waterreminder.utilities.WorkerUtils
 import com.koniukhov.waterreminder.workers.NotificationWorker
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalTime
+import java.util.stream.Collectors
 
 class MainViewModel(private val dataStore: UserDataStore, application: Application) : ViewModel() {
     var userFlow = dataStore.userPreferencesFlow
@@ -32,11 +31,11 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
 
     private val dataBase: AppDataBase = AppDataBase.getDataBase(application.applicationContext)
 
-    private val allDrinkWare: Flow<List<DrinkWare>> by lazy {
-        dataBase.drinkWareDao().getDrinkWares()
-    }
+    val allDrinkWare = dataBase.drinkWareDao().getDrinkWares()
 
     private val allDailyWater = dataBase.dailyWaterDao().getAllByDate(LocalDate.now().toString())
+
+    private lateinit var currentDrinkWare: DrinkWare
 
     var waterAmount = MutableLiveData<Int>()
         private set
@@ -51,6 +50,15 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
             allDailyWater.collect{
                 val amount = it.sumOf { dailyWater -> dailyWater.volume }
                 waterAmount.postValue(amount)
+            }
+        }
+        viewModelScope.launch(Dispatchers.IO) {
+            allDrinkWare.collect{
+
+                val drinkWare = it.stream().filter{v -> v.isActive == 1}.collect(Collectors.toList())
+                if (drinkWare.isNotEmpty()){
+                    currentDrinkWare = drinkWare.first()
+                }
             }
         }
     }
@@ -114,6 +122,26 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
         }
     }
 
+    fun addWaterByCurrentDrinkWare(){
+        val time = LocalTime.now()
+        val date = LocalDate.now()
+        val volume = currentDrinkWare.volume
+        val icon = currentDrinkWare.iconName
+
+        addWater(time, date, volume, icon)
+    }
+
+    fun updateDrinkWare(newDrinkWare: DrinkWare){
+        if (currentDrinkWare != newDrinkWare){
+            currentDrinkWare.isActive = 0
+            newDrinkWare.isActive = 1
+            viewModelScope.launch(Dispatchers.IO) {
+                dataBase.drinkWareDao().updateAll(currentDrinkWare, newDrinkWare)
+            }
+
+        }
+    }
+
     class MainViewModelFactory(private val dataStore: UserDataStore, private val application: Application
     ) : ViewModelProvider.Factory {
         override fun <T : ViewModel> create(modelClass: Class<T>): T {
@@ -124,20 +152,4 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
             throw IllegalArgumentException("Unknown ViewModel class")
         }
     }
-
-    companion object{
-        val drinkWareIcons = mapOf(
-            "ic_drink_ware_custom" to R.drawable.ic_drink_ware_custom,
-            "ic_drink_ware_50_ml" to R.drawable.ic_drink_ware_50_ml,
-            "ic_drink_ware_100_ml" to R.drawable.ic_drink_ware_100_ml,
-            "ic_drink_ware_125_ml" to R.drawable.ic_drink_ware_125_ml,
-            "ic_drink_ware_150_ml" to R.drawable.ic_drink_ware_150_ml,
-            "ic_drink_ware_175_ml" to R.drawable.ic_drink_ware_175_ml,
-            "ic_drink_ware_200_ml" to R.drawable.ic_drink_ware_200_ml,
-            "ic_drink_ware_250_ml" to R.drawable.ic_drink_ware_250_ml,
-            "ic_drink_ware_300_ml" to R.drawable.ic_drink_ware_300_ml,
-            "ic_drink_ware_400_ml" to R.drawable.ic_drink_ware_400_ml
-        )
-    }
-
 }

@@ -14,11 +14,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.first
 import androidx.lifecycle.lifecycleScope
 import com.koniukhov.waterreminder.R
+import com.koniukhov.waterreminder.data.drinkware.DrinkWareIcons
 import com.koniukhov.waterreminder.utilities.getPercentageOfWaterDrunk
 import com.koniukhov.waterreminder.utilities.getStringAmountOfRemainingWater
 import com.koniukhov.waterreminder.utilities.getStringPercentageOfWaterDrunk
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
 import kotlinx.coroutines.launch
+import java.util.stream.Collectors
 
 class HomeFragment : Fragment() {
 
@@ -39,6 +41,16 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_homeFragment_to_starterFragment)
             }
         }
+
+        lifecycleScope.launch {
+            sharedViewModel.allDrinkWare.collect{
+
+                val drinkWare = it.stream().filter{v -> v.isActive == 1}.collect(Collectors.toList())
+                if (drinkWare.isNotEmpty()){
+                    binding.drinkWareBtn.setImageResource(DrinkWareIcons.icons[drinkWare.first().iconName]!!)
+                }
+            }
+        }
     }
 
     override fun onCreateView(
@@ -57,17 +69,27 @@ class HomeFragment : Fragment() {
         sharedViewModel.waterAmount.observe(viewLifecycleOwner) {
             val circleProgress = binding.circleProgress
 
-            lifecycleScope.launch {
+            lifecycleScope.launch(Dispatchers.Main) {
                 val waterLimit = sharedViewModel.userFlow.first().waterLimitPerDay
                 circleProgress.setCenterText(getStringPercentageOfWaterDrunk(it, waterLimit, requireContext()))
                 circleProgress.setBottomText(getStringAmountOfRemainingWater(it, waterLimit, requireContext()))
                 circleProgress.setProgress(getPercentageOfWaterDrunk(it, waterLimit))
             }
         }
+
+        sharedViewModel
     }
 
     fun showCustomWaterVolumeDialog(){
         CustomWaterVolumeDialogFragment().show(childFragmentManager, CustomWaterVolumeDialogFragment.TAG)
+    }
+
+    fun showDrinkWareDialog(){
+        DrinkWareDialogFragment().show(childFragmentManager, DrinkWareDialogFragment.TAG)
+    }
+
+    fun saveWater(){
+        sharedViewModel.addWaterByCurrentDrinkWare()
     }
 
     override fun onDestroyView() {

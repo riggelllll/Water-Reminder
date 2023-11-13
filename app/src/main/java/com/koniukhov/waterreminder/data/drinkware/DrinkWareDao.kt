@@ -13,4 +13,7 @@ interface DrinkWareDao {
 
     @Update
     suspend fun update(drinkWare: DrinkWare)
+
+    @Update
+    suspend fun updateAll(vararg drinkWare: DrinkWare)
 }

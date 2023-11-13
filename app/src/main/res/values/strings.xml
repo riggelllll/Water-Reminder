@@ -34,6 +34,7 @@
 
     <string name="dialog_save_btn">Save</string>
     <string name="dialog_cancel_btn">Cancel</string>
+    <string name="dialog_close_btn">Close</string>
 
     <string name="add_custom_water_amount">Add the amount of water you drink</string>
 
@@ -43,4 +44,7 @@
     <string name="goal_is_reached">You have reached your goal</string>
     
     <string name="toast_enter_amount_of_water">Enter the amount of water you drink</string>
+
+    <string name="volume_format">%d ml</string>
+    <string name="switch_cup">Switch a cup</string>
 </resources>

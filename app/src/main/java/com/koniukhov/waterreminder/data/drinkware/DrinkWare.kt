@@ -13,5 +13,5 @@ data class DrinkWare(
     @ColumnInfo(name = "icon_name")
     val iconName: String,
     @ColumnInfo(name = "is_active")
-    val isActive: Int
+    var isActive: Int
 )

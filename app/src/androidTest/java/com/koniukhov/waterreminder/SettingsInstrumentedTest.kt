@@ -2,9 +2,6 @@ package com.koniukhov.waterreminder
 
 import android.view.View
 import androidx.fragment.app.testing.launchFragmentInContainer
-import androidx.navigation.Navigation
-import androidx.navigation.testing.TestNavHostController
-import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.UiController
 import androidx.test.espresso.ViewAction
@@ -36,11 +33,11 @@ class SettingsInstrumentedTest {
 
         onView(withId(R.id.remind_interval_layout)).perform(click())
         onView(withId(R.id.slider)).perform(setValue(3f))
-        onView(withId(R.id.save_btn)).perform(click())
+        onView(withId(R.id.close_btn)).perform(click())
 
         onView(withId(R.id.gender_layout)).perform(click())
         onView(withId(R.id.male_radio)).perform(click())
-        onView(withId(R.id.save_btn)).perform(click())
+        onView(withId(R.id.close_btn)).perform(click())
 
         onView(withId(R.id.remind_interval)).check(matches(withText("3 h")))
         onView(withId(R.id.gender_text)).check(matches(withText("Male")))
