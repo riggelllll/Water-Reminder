@@ -47,4 +47,7 @@
 
     <string name="volume_format">%d ml</string>
     <string name="switch_cup">Switch a cup</string>
+    
+    <string name="daily_tab">Daily</string>
+    <string name="monthly_tab">Monthly</string>
 </resources>
