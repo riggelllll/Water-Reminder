@@ -18,6 +18,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import java.time.LocalDate
 import java.time.LocalTime
+import java.time.format.DateTimeFormatter
 import java.util.stream.Collectors
 
 class MainViewModel(private val dataStore: UserDataStore, application: Application) : ViewModel() {
@@ -33,7 +34,8 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
 
     val allDrinkWare = dataBase.drinkWareDao().getDrinkWares()
 
-    private val allDailyWater = dataBase.dailyWaterDao().getAllByDate(LocalDate.now().toString())
+    var allDailyWater = dataBase.dailyWaterDao().getAllByDate(LocalDate.now().toString())
+        private set
 
     private lateinit var currentDrinkWare: DrinkWare
 
@@ -116,7 +118,8 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
     }
 
     fun addWater(time: LocalTime, date: LocalDate, volume: Int, iconName: String){
-        val record = DailyWater(null, volume, time.toString(), date.toString(), iconName)
+        val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
+        val record = DailyWater(null, volume,time.format(timeFormatter), date.toString(), iconName)
         viewModelScope.launch(Dispatchers.IO) {
             dataBase.dailyWaterDao().addDailyWater(record)
         }
