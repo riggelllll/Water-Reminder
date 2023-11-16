@@ -125,6 +125,12 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
         }
     }
 
+    fun deleteWater(dailyWater: DailyWater){
+        viewModelScope.launch(Dispatchers.IO) {
+            dataBase.dailyWaterDao().delete(dailyWater)
+        }
+    }
+
     fun addWaterByCurrentDrinkWare(){
         val time = LocalTime.now()
         val date = LocalDate.now()
