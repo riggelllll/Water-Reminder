@@ -41,16 +41,6 @@ class HomeFragment : Fragment() {
                 findNavController().navigate(R.id.action_homeFragment_to_starterFragment)
             }
         }
-
-        lifecycleScope.launch {
-            sharedViewModel.allDrinkWare.collect{
-
-                val drinkWare = it.stream().filter{v -> v.isActive == 1}.collect(Collectors.toList())
-                if (drinkWare.isNotEmpty()){
-                    binding.drinkWareBtn.setImageResource(DrinkWareIcons.icons[drinkWare.first().iconName]!!)
-                }
-            }
-        }
     }
 
     override fun onCreateView(
@@ -76,8 +66,15 @@ class HomeFragment : Fragment() {
                 circleProgress.setProgress(getPercentageOfWaterDrunk(it, waterLimit))
             }
         }
+        lifecycleScope.launch {
+            sharedViewModel.allDrinkWare.collect{
 
-        sharedViewModel
+                val drinkWare = it.stream().filter{v -> v.isActive == 1}.collect(Collectors.toList())
+                if (drinkWare.isNotEmpty()){
+                    binding.drinkWareBtn.setImageResource(DrinkWareIcons.icons[drinkWare.first().iconName]!!)
+                }
+            }
+        }
     }
 
     fun showCustomWaterVolumeDialog(){
