@@ -13,6 +13,7 @@ import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.UserPreferences
 import com.koniukhov.waterreminder.database.AppDataBase
 import com.koniukhov.waterreminder.utilities.WorkerUtils
+import com.koniukhov.waterreminder.utilities.yearMonthFormat
 import com.koniukhov.waterreminder.workers.NotificationWorker
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -35,6 +36,9 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
     val allDrinkWare = dataBase.drinkWareDao().getDrinkWares()
 
     var allDailyWater = dataBase.dailyWaterDao().getAllByDate(LocalDate.now().toString())
+        private set
+
+    var allMonthlyWater = dataBase.dailyWaterDao().getAllByMonth(yearMonthFormat(LocalDate.now()))
         private set
 
     private lateinit var currentDrinkWare: DrinkWare
