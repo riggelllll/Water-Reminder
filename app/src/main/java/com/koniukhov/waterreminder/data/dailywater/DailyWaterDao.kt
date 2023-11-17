@@ -13,7 +13,7 @@ interface DailyWaterDao {
     fun getAllByDate(date: String): Flow<List<DailyWater>>
 
     @Query("SELECT * FROM DailyWater WHERE date LIKE :yearMonth || '%'")
-    fun getAllByMonth(yearMonth: String): List<DailyWater>
+    fun getAllByMonth(yearMonth: String): Flow<List<DailyWater>>
 
     @Insert
     suspend fun addDailyWater(dailyWater: DailyWater)
