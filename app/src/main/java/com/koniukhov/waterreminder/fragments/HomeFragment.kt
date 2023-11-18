@@ -31,18 +31,6 @@ class HomeFragment : Fragment() {
         MainViewModel.MainViewModelFactory(UserDataStore(requireContext().dataStore), requireActivity().application)
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        val userPreferences = UserDataStore(requireContext().dataStore)
-
-        lifecycleScope.launch(Dispatchers.Main) {
-            if (userPreferences.userPreferencesFlow.first().isFirstOpening){
-                findNavController().navigate(R.id.action_homeFragment_to_starterFragment)
-            }
-        }
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,6 +44,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        navigateToStarterFragment()
         sharedViewModel.waterAmount.observe(viewLifecycleOwner) {
             val circleProgress = binding.circleProgress
 
@@ -87,6 +76,19 @@ class HomeFragment : Fragment() {
 
     fun saveWater(){
         sharedViewModel.addWaterByCurrentDrinkWare()
+    }
+
+    private fun navigateToStarterFragment(){
+
+        val userPreferences = UserDataStore(requireContext().dataStore)
+
+        lifecycleScope.launch(Dispatchers.Main) {
+           if (userPreferences.userPreferencesFlow.first().isFirstOpening){
+               findNavController().navigate(R.id.action_homeFragment_to_starterFragment)
+           }else{
+               binding.root.visibility = View.VISIBLE
+           }
+        }
     }
 
     override fun onDestroyView() {
