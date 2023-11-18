@@ -9,6 +9,8 @@
             type="com.koniukhov.waterreminder.fragments.HomeFragment" />
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/root"
+        android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <com.koniukhov.waterreminder.views.WaterProgressCircle
