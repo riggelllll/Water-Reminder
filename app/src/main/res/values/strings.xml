@@ -50,4 +50,5 @@
     
     <string name="daily_tab">Daily</string>
     <string name="monthly_tab">Monthly</string>
+    <string name="daily_hint">Drink water and then the corresponding entry will appear here</string>
 </resources>

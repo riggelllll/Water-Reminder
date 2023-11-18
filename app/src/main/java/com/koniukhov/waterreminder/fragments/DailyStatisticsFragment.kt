@@ -41,6 +41,7 @@ class DailyStatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initAdapter()
         observeDailyWater()
+        showHint()
     }
 
     private fun initAdapter(){
@@ -53,6 +54,14 @@ class DailyStatisticsFragment : Fragment() {
             sharedViewModel.allDailyWater.collect{
                 adapter.submitList(it.asReversed())
             }
+        }
+    }
+
+    private fun showHint(){
+        if (sharedViewModel.waterAmount.value!! > 0){
+            binding.hint.visibility = View.INVISIBLE
+        }else{
+            binding.hint.visibility = View.VISIBLE
         }
     }
 }
