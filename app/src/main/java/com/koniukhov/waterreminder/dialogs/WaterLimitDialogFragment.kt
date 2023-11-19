@@ -32,16 +32,26 @@ class WaterLimitDialogFragment: DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.slider.value = sharedViewModel.userPreferences.waterLimitPerDay.toFloat()
+        initSlider()
+        addCancelBtnListener()
+        addSaveBtnListener()
+    }
 
-        binding.cancelBtn.setOnClickListener{
-            dismiss()
-        }
-
-        binding.saveBtn.setOnClickListener{
+    private fun addSaveBtnListener() {
+        binding.saveBtn.setOnClickListener {
             sharedViewModel.changeWaterLimit(binding.slider.value.toInt())
             dismiss()
         }
+    }
+
+    private fun addCancelBtnListener() {
+        binding.cancelBtn.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun initSlider() {
+        binding.slider.value = sharedViewModel.userPreferences.waterLimitPerDay.toFloat()
     }
 
     override fun onDestroyView() {
