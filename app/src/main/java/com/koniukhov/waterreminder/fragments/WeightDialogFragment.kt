@@ -14,10 +14,6 @@ import com.koniukhov.waterreminder.viewmodels.MainViewModel
 
 class WeightDialogFragment : DialogFragment() {
 
-    companion object {
-        const val TAG = "WeightDialog"
-    }
-
     private var _binding: WeightDialogFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -55,5 +51,9 @@ class WeightDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TAG = "WeightDialog"
     }
 }
