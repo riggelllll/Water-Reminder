@@ -33,19 +33,30 @@ class WeightDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.slider.value = sharedViewModel.userPreferences.weight.toFloat()
+        initSlider()
+        addCancelBtnListener()
+        addSaveBtnListener()
+    }
 
-        binding.cancelBtn.setOnClickListener{
-            dismiss()
-        }
-
-        binding.saveBtn.setOnClickListener{
+    private fun addSaveBtnListener() {
+        binding.saveBtn.setOnClickListener {
             val weight = binding.slider.value.toInt()
-            val waterLimit = WaterHelper.calculateWaterAmount(sharedViewModel.userPreferences.gender, weight)
+            val waterLimit =
+                WaterHelper.calculateWaterAmount(sharedViewModel.userPreferences.gender, weight)
             sharedViewModel.changeWeight(weight)
             sharedViewModel.changeWaterLimit(waterLimit)
             dismiss()
         }
+    }
+
+    private fun addCancelBtnListener() {
+        binding.cancelBtn.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun initSlider() {
+        binding.slider.value = sharedViewModel.userPreferences.weight.toFloat()
     }
 
     override fun onDestroyView() {
