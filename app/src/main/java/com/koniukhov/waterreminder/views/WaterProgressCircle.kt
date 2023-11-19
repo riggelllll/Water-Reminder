@@ -16,6 +16,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
+import androidx.annotation.Keep
 import com.koniukhov.waterreminder.R
 import kotlin.math.min
 import kotlin.math.roundToInt
@@ -152,6 +153,7 @@ class WaterProgressCircle(context: Context, attrs: AttributeSet) : View(context,
         return Color.argb(alpha, red, green, blue)
     }
 
+    @Keep
     fun setWaveShiftRatio(waveShiftRatio: Float) {
         if (this.waveShiftRatio != waveShiftRatio) {
             this.waveShiftRatio = waveShiftRatio
@@ -159,6 +161,7 @@ class WaterProgressCircle(context: Context, attrs: AttributeSet) : View(context,
         }
     }
 
+    @Keep
     fun setWaterLevelRatio(waterLevelRatio: Float) {
         if (this.waterLevelRatio != waterLevelRatio) {
             this.waterLevelRatio = waterLevelRatio
@@ -172,6 +175,7 @@ class WaterProgressCircle(context: Context, attrs: AttributeSet) : View(context,
         }
     }
 
+    @Keep
     private fun initAnimation() {
         waveShiftAnim = ObjectAnimator.ofFloat(
             this,
