@@ -45,25 +45,44 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         navigateToStarterFragment()
+        updateCircleProgress()
+        updateDrinkWareIcon()
+    }
+
+    private fun updateDrinkWareIcon() {
+        lifecycleScope.launch {
+            sharedViewModel.allDrinkWare.collect {
+                val drinkWare =
+                    it.stream().filter { v -> v.isActive == 1 }.collect(Collectors.toList())
+                if (drinkWare.isNotEmpty()) {
+                    binding.drinkWareBtn.setImageResource(DrinkWareIcons.icons[drinkWare.first().iconName]!!)
+                }
+            }
+        }
+    }
+
+    private fun updateCircleProgress() {
         sharedViewModel.waterAmount.observe(viewLifecycleOwner) {
             val circleProgress = binding.circleProgress
 
             lifecycleScope.launch(Dispatchers.Main) {
                 val waterLimit = sharedViewModel.userFlow.first().waterLimitPerDay
-                circleProgress.setCenterText(getStringPercentageOfWaterDrunk(it, waterLimit, requireContext()))
-                circleProgress.setBottomText(getStringAmountOfRemainingWater(it, waterLimit, requireContext()))
+                circleProgress.setCenterText(
+                    getStringPercentageOfWaterDrunk(
+                        it,
+                        waterLimit,
+                        requireContext()
+                    )
+                )
+                circleProgress.setBottomText(
+                    getStringAmountOfRemainingWater(
+                        it,
+                        waterLimit,
+                        requireContext()
+                    )
+                )
                 circleProgress.setProgress(getPercentageOfWaterDrunk(it, waterLimit))
-            }
-        }
-        lifecycleScope.launch {
-            sharedViewModel.allDrinkWare.collect{
-
-                val drinkWare = it.stream().filter{v -> v.isActive == 1}.collect(Collectors.toList())
-                if (drinkWare.isNotEmpty()){
-                    binding.drinkWareBtn.setImageResource(DrinkWareIcons.icons[drinkWare.first().iconName]!!)
-                }
             }
         }
     }
@@ -81,7 +100,6 @@ class HomeFragment : Fragment() {
     }
 
     private fun navigateToStarterFragment(){
-
         val userPreferences = UserDataStore(requireContext().dataStore)
 
         lifecycleScope.launch(Dispatchers.Main) {
