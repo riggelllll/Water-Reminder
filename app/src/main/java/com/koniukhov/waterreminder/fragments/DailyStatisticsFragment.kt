@@ -18,7 +18,7 @@ import kotlinx.coroutines.launch
 class DailyStatisticsFragment : Fragment() {
 
     private var _binding: DailyStatisticsFragmentBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     private val sharedViewModel: MainViewModel by activityViewModels {
         MainViewModel.MainViewModelFactory(UserDataStore(requireContext().dataStore), requireActivity().application)
