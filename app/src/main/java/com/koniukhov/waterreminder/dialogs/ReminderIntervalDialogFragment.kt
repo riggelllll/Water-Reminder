@@ -1,4 +1,4 @@
-package com.koniukhov.waterreminder.fragments
+package com.koniukhov.waterreminder.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,13 +8,12 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
-import com.koniukhov.waterreminder.databinding.WeightDialogFragmentBinding
-import com.koniukhov.waterreminder.utilities.WaterHelper
+import com.koniukhov.waterreminder.databinding.RemindIntervalDialogFragmentBinding
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
 
-class WeightDialogFragment : DialogFragment() {
+class ReminderIntervalDialogFragment : DialogFragment() {
 
-    private var _binding: WeightDialogFragmentBinding? = null
+    private var _binding: RemindIntervalDialogFragmentBinding? = null
     private val binding get() = _binding!!
 
     private val sharedViewModel: MainViewModel by activityViewModels{
@@ -26,24 +25,21 @@ class WeightDialogFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = WeightDialogFragmentBinding.inflate(inflater, container, false)
+        _binding = RemindIntervalDialogFragmentBinding.inflate(inflater, container, false)
         this.dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        binding.slider.value = sharedViewModel.userPreferences.weight.toFloat()
+        binding.slider.value = sharedViewModel.userPreferences.reminderInterval.toFloat()
 
         binding.cancelBtn.setOnClickListener{
             dismiss()
         }
 
         binding.saveBtn.setOnClickListener{
-            val weight = binding.slider.value.toInt()
-            val waterLimit = WaterHelper.calculateWaterAmount(sharedViewModel.userPreferences.gender, weight)
-            sharedViewModel.changeWeight(weight)
-            sharedViewModel.changeWaterLimit(waterLimit)
+            sharedViewModel.changeReminderInterval(binding.slider.value.toInt())
             dismiss()
         }
     }
@@ -54,6 +50,7 @@ class WeightDialogFragment : DialogFragment() {
     }
 
     companion object {
-        const val TAG = "WeightDialog"
+        const val TAG = "ReminderIntervalDialog"
     }
+
 }

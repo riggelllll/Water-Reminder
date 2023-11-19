@@ -14,6 +14,10 @@ import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.SettingsFragmentBinding
+import com.koniukhov.waterreminder.dialogs.GenderDialogFragment
+import com.koniukhov.waterreminder.dialogs.ReminderIntervalDialogFragment
+import com.koniukhov.waterreminder.dialogs.WaterLimitDialogFragment
+import com.koniukhov.waterreminder.dialogs.WeightDialogFragment
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
 import com.koniukhov.waterreminder.viewmodels.StarterViewModel
 import kotlinx.coroutines.launch

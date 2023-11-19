@@ -15,6 +15,8 @@ import kotlinx.coroutines.flow.first
 import androidx.lifecycle.lifecycleScope
 import com.koniukhov.waterreminder.R
 import com.koniukhov.waterreminder.data.drinkware.DrinkWareIcons
+import com.koniukhov.waterreminder.dialogs.CustomWaterVolumeDialogFragment
+import com.koniukhov.waterreminder.dialogs.DrinkWareDialogFragment
 import com.koniukhov.waterreminder.utilities.getPercentageOfWaterDrunk
 import com.koniukhov.waterreminder.utilities.getStringAmountOfRemainingWater
 import com.koniukhov.waterreminder.utilities.getStringPercentageOfWaterDrunk

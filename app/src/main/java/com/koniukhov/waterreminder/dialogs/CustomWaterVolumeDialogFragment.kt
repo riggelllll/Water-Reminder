@@ -1,4 +1,4 @@
-package com.koniukhov.waterreminder.fragments
+package com.koniukhov.waterreminder.dialogs
 
 import android.os.Bundle
 import android.view.LayoutInflater
