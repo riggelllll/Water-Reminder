@@ -34,24 +34,44 @@ class GenderDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (sharedViewModel.userPreferences.gender == Gender.MALE){
+        initRadioBtn()
+        addCancelBtnListener()
+        addSaveBtnListener()
+    }
+
+    private fun initRadioBtn() {
+        if (sharedViewModel.userPreferences.gender == Gender.MALE) {
             binding.maleRadio.isChecked = true
-        }else{
+        } else {
             binding.femaleRadio.isChecked = true
         }
+    }
 
-        binding.cancelBtn.setOnClickListener{
+    private fun addSaveBtnListener() {
+        binding.saveBtn.setOnClickListener {
+            if (binding.maleRadio.isChecked) {
+                sharedViewModel.changeGender(Gender.MALE)
+                sharedViewModel.changeWaterLimit(
+                    WaterHelper.calculateWaterAmount(
+                        Gender.MALE,
+                        sharedViewModel.userPreferences.weight
+                    )
+                )
+            } else {
+                sharedViewModel.changeGender(Gender.FEMALE)
+                sharedViewModel.changeWaterLimit(
+                    WaterHelper.calculateWaterAmount(
+                        Gender.FEMALE,
+                        sharedViewModel.userPreferences.weight
+                    )
+                )
+            }
             dismiss()
         }
+    }
 
-        binding.saveBtn.setOnClickListener{
-            if (binding.maleRadio.isChecked){
-                sharedViewModel.changeGender(Gender.MALE)
-                sharedViewModel.changeWaterLimit(WaterHelper.calculateWaterAmount(Gender.MALE, sharedViewModel.userPreferences.weight))
-            }else{
-                sharedViewModel.changeGender(Gender.FEMALE)
-                sharedViewModel.changeWaterLimit(WaterHelper.calculateWaterAmount(Gender.FEMALE, sharedViewModel.userPreferences.weight))
-            }
+    private fun addCancelBtnListener() {
+        binding.cancelBtn.setOnClickListener {
             dismiss()
         }
     }
