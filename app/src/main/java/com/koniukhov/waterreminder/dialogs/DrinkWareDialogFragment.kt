@@ -38,7 +38,6 @@ class DrinkWareDialogFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         initAdapter()
         addCloseBtnListener()
     }
