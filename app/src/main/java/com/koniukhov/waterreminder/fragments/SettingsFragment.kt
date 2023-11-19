@@ -38,10 +38,6 @@ class SettingsFragment : Fragment() {
     private var bedTimeHour: Int = StarterViewModel.DEFAULT_BED_HOUR
     private var bedTimeMinute: Int = StarterViewModel.DEFAULT_MINUTE
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -56,24 +52,25 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        updateSettings()
+    }
 
-        lifecycleScope.launch{
-            sharedViewModel.userFlow.collect{
+    private fun updateSettings() {
+        lifecycleScope.launch {
+            sharedViewModel.userFlow.collect {
                 binding.isReminderSwitch.isChecked =
                     it.isRemind
                 binding.waterLimit.text =
                     getString(R.string.water_limit_value, it.waterLimitPerDay.toString())
                 binding.remindInterval.text =
                     getString(R.string.remind_interval_value, it.reminderInterval.toString())
-                binding.genderText.text = if (it.gender == Gender.MALE) getString(R.string.male_text) else getString(R.string.female_text)
-
+                binding.genderText.text =
+                    if (it.gender == Gender.MALE) getString(R.string.male_text) else getString(R.string.female_text)
                 binding.weightText.text = getString(R.string.weight_value, it.weight.toString())
                 binding.wakeUpText.text = it.wakeUpTime.toString()
                 binding.bedTimeText.text = it.bedTime.toString()
-
                 wakeUpHour = it.wakeUpTime.hour
                 wakeUpMinute = it.wakeUpTime.minute
-
                 bedTimeHour = it.bedTime.hour
                 bedTimeMinute = it.bedTime.minute
             }
