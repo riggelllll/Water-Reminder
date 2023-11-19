@@ -12,9 +12,6 @@ import com.koniukhov.waterreminder.databinding.RemindIntervalDialogFragmentBindi
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
 
 class ReminderIntervalDialogFragment : DialogFragment() {
-    companion object {
-        const val TAG = "ReminderIntervalDialog"
-    }
 
     private var _binding: RemindIntervalDialogFragmentBinding? = null
     private val binding get() = _binding!!
@@ -50,6 +47,10 @@ class ReminderIntervalDialogFragment : DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TAG = "ReminderIntervalDialog"
     }
 
 }
