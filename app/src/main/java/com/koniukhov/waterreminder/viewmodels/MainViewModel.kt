@@ -135,7 +135,7 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
     }
 
     fun addWater(time: LocalTime, date: LocalDate, volume: Int, iconName: String){
-        val timeFormatter = DateTimeFormatter.ofPattern("hh:mm")
+        val timeFormatter = DateTimeFormatter.ofPattern("HH:mm")
         val record = DailyWater(null, volume,time.format(timeFormatter), date.toString(), iconName)
         viewModelScope.launch(Dispatchers.IO) {
             dataBase.dailyWaterDao().addDailyWater(record)
