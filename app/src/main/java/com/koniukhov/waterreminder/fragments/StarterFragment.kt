@@ -33,7 +33,10 @@ class StarterFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        observeNavigation()
+    }
 
+    private fun observeNavigation() {
         viewModel.hasToNavigate.observe(viewLifecycleOwner) {
             if (it) {
                 navigateToHome()
