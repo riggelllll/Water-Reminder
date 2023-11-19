@@ -44,7 +44,7 @@ class DrinkWareAdapter(private val context: Context, private val sharedViewModel
         }
 
         override fun areContentsTheSame(oldItem: DrinkWare, newItem: DrinkWare): Boolean {
-            return oldItem.isActive == newItem.isActive
+            return oldItem == newItem
         }
     }
 }
