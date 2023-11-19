@@ -9,6 +9,9 @@ import com.koniukhov.waterreminder.data.dailywater.DailyWaterDao
 import com.koniukhov.waterreminder.data.drinkware.DrinkWare
 import com.koniukhov.waterreminder.data.drinkware.DrinkWareDao
 
+const val DATABASE_NAME = "app_database"
+const val ASSET_DATABASE = "database/water_reminder.db"
+
 @Database(entities = [DailyWater::class, DrinkWare::class], version = 1)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun drinkWareDao(): DrinkWareDao
@@ -23,8 +26,8 @@ abstract class AppDataBase : RoomDatabase() {
                 val instance = Room.databaseBuilder(
                     context,
                     AppDataBase::class.java,
-                    "app_database")
-                    .createFromAsset("database/water_reminder.db")
+                    DATABASE_NAME)
+                    .createFromAsset(ASSET_DATABASE)
                     .build()
 
                 INSTANCE = instance
