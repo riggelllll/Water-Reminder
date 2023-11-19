@@ -21,17 +21,6 @@ val Context.dataStore: DataStore<Preferences> by preferencesDataStore(
 
 class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
 
-    companion object{
-        val WEIGHT = intPreferencesKey("weight")
-        val GENDER = intPreferencesKey("gender")
-        val WAKE_UP_TIME = intPreferencesKey("wake_up_time")
-        val BED_TIME = intPreferencesKey("bed_time")
-        val IS_REMIND = booleanPreferencesKey("is_remind")
-        val REMINDER_INTERVAL = intPreferencesKey("reminder_interval")
-        val WATER_LIMIT_PER_DAY = intPreferencesKey("water_limit_per_day")
-        val IS_FIRST_OPENING = booleanPreferencesKey("is_first_opening")
-    }
-
     val userPreferencesFlow: Flow<UserPreferences> = preferencesDatastore.data.map { preferences ->
 
         val weight = preferences[WEIGHT] ?: 0
@@ -95,7 +84,6 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
         }
     }
 
-
     suspend fun saveUser(weight: Int, sex: Gender, wakeUpTime: LocalTime, bedTime: LocalTime, waterLimitPerDay: Int){
         preferencesDatastore.edit { preferences ->
             preferences[WEIGHT] = weight
@@ -107,6 +95,17 @@ class UserDataStore(private val preferencesDatastore: DataStore<Preferences>){
             preferences[WATER_LIMIT_PER_DAY] = waterLimitPerDay
             preferences[IS_FIRST_OPENING] = false
         }
+    }
+
+    companion object{
+        val WEIGHT = intPreferencesKey("weight")
+        val GENDER = intPreferencesKey("gender")
+        val WAKE_UP_TIME = intPreferencesKey("wake_up_time")
+        val BED_TIME = intPreferencesKey("bed_time")
+        val IS_REMIND = booleanPreferencesKey("is_remind")
+        val REMINDER_INTERVAL = intPreferencesKey("reminder_interval")
+        val WATER_LIMIT_PER_DAY = intPreferencesKey("water_limit_per_day")
+        val IS_FIRST_OPENING = booleanPreferencesKey("is_first_opening")
     }
 }
 
