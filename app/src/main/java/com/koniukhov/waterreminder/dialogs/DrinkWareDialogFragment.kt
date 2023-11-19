@@ -12,12 +12,13 @@ import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.DrinkWareDialogFragmentBinding
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class DrinkWareDialogFragment : DialogFragment() {
 
     private var _binding: DrinkWareDialogFragmentBinding? = null
-    val binding get() = _binding!!
+    private val binding get() = _binding!!
 
     private val sharedViewModel: MainViewModel by activityViewModels {
         MainViewModel.MainViewModelFactory(UserDataStore(requireContext().dataStore), requireActivity().application)
@@ -38,16 +39,23 @@ class DrinkWareDialogFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        initAdapter()
+        addCloseBtnListener()
+    }
+
+    private fun addCloseBtnListener() {
+        binding.closeBtn.setOnClickListener {
+            dismiss()
+        }
+    }
+
+    private fun initAdapter() {
         adapter = DrinkWareAdapter(requireContext(), sharedViewModel)
         binding.drinkWareRecycler.adapter = adapter
         lifecycleScope.launch {
-            sharedViewModel.allDrinkWare.collect{
+            sharedViewModel.allDrinkWare.collect {
                 adapter.submitList(it)
             }
-        }
-
-        binding.closeBtn.setOnClickListener{
-            dismiss()
         }
     }
 
