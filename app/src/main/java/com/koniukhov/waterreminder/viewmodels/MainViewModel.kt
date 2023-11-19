@@ -27,7 +27,6 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
     private set
 
     private val workManager = WorkManager.getInstance(application)
-
     lateinit var userPreferences: UserPreferences
         private set
 
@@ -47,27 +46,41 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
         private set
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            userFlow.collect{
-                userPreferences = it
-            }
-        }
-        viewModelScope.launch(Dispatchers.IO) {
-            allDailyWater.collect{
-                val amount = it.sumOf { dailyWater -> dailyWater.volume }
-                waterAmount.postValue(amount)
-            }
-        }
-        viewModelScope.launch(Dispatchers.IO) {
-            allDrinkWare.collect{
+        observeUserPreferences()
+        observeWaterAmount()
+        observeCurrentDrinkWare()
+    }
 
-                val drinkWare = it.stream().filter{v -> v.isActive == 1}.collect(Collectors.toList())
-                if (drinkWare.isNotEmpty()){
+    private fun observeCurrentDrinkWare() {
+        viewModelScope.launch(Dispatchers.IO) {
+            allDrinkWare.collect {
+
+                val drinkWare =
+                    it.stream().filter { v -> v.isActive == 1 }.collect(Collectors.toList())
+                if (drinkWare.isNotEmpty()) {
                     currentDrinkWare = drinkWare.first()
                 }
             }
         }
     }
+
+    private fun observeWaterAmount() {
+        viewModelScope.launch(Dispatchers.IO) {
+            allDailyWater.collect {
+                val amount = it.sumOf { dailyWater -> dailyWater.volume }
+                waterAmount.postValue(amount)
+            }
+        }
+    }
+
+    private fun observeUserPreferences() {
+        viewModelScope.launch(Dispatchers.IO) {
+            userFlow.collect {
+                userPreferences = it
+            }
+        }
+    }
+
     fun changeIsRemind(value: Boolean){
         viewModelScope.launch(Dispatchers.IO){
 
