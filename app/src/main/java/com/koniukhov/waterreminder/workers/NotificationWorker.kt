@@ -3,7 +3,7 @@ package com.koniukhov.waterreminder.workers
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
-import com.koniukhov.waterreminder.utilities.WorkerUtils.Companion.makeNotification
+import com.koniukhov.waterreminder.utilities.WorkerUtils.makeNotification
 import com.koniukhov.waterreminder.utilities.isBetweenLocalTime
 import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.BED_TIME_EXTRA
 import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.DEFAULT_BED_HOUR
@@ -14,9 +14,7 @@ import java.time.LocalTime
 
 
 class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, params) {
-    companion object{
-        const val NAME = "NotificationWorker"
-    }
+
     private val appContext = applicationContext
     override fun doWork(): Result {
 
@@ -40,5 +38,9 @@ class NotificationWorker(ctx: Context, params: WorkerParameters) : Worker(ctx, p
         }else{
            return Result.failure()
         }
+    }
+
+    companion object{
+        const val NAME = "NotificationWorker"
     }
 }
