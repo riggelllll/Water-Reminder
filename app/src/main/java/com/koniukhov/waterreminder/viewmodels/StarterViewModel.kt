@@ -37,7 +37,7 @@ class StarterViewModel(private val dataStore: UserDataStore,
     var isTimeLayoutVisible = MutableLiveData(false)
     private set
 
-    private val actionsQueue: Queue<() ->Unit> = LinkedList()
+    private val actionsQueue: Queue<() -> Unit> = LinkedList()
 
     private val actionHideIntroShowGender: (() -> Unit) = {
         isIntroLayoutVisible.value = false
