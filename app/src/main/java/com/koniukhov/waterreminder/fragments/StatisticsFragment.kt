@@ -29,7 +29,10 @@ class StatisticsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initViewPager()
         addTabListener()
+        updateSavedInstanceState(savedInstanceState)
+    }
 
+    private fun updateSavedInstanceState(savedInstanceState: Bundle?) {
         savedInstanceState?.let {
             tabPos = it.getInt(TAB_POS_EXTRA)
             binding.tabLayout.getTabAt(tabPos)?.select()
