@@ -12,9 +12,6 @@ import com.koniukhov.waterreminder.databinding.WaterLimitDialogFragmentBinding
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
 
 class WaterLimitDialogFragment: DialogFragment() {
-    companion object {
-        const val TAG = "WaterLimitDialog"
-    }
 
     private var _binding: WaterLimitDialogFragmentBinding? = null
     private val binding get() = _binding!!
@@ -50,5 +47,9 @@ class WaterLimitDialogFragment: DialogFragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object {
+        const val TAG = "WaterLimitDialog"
     }
 }
