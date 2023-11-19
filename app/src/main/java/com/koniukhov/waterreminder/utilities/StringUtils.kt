@@ -17,20 +17,17 @@ fun getStringPercentageOfWaterDrunk(amountOfWaterDrunk: Int, amountOfDailyLimit:
 
 fun getStringAmountOfRemainingWater(amountOfWaterDrunk: Int, amountOfDailyLimit: Int, context: Context): String{
     var left = amountOfDailyLimit - amountOfWaterDrunk
-    var res = ""
 
-    when{
+    return when{
         left > 0 ->{
-            res = context.getString(R.string.remaining_amount_today, left)
+            context.getString(R.string.remaining_amount_today, left)
         }
         left == 0 ->{
-            res = context.getString(R.string.goal_is_reached)
+            context.getString(R.string.goal_is_reached)
         }
-        left < 0 ->{
+        else ->{
             left *= -1
-            res = context.getString(R.string.remaining_amount_more_today, left)
+            context.getString(R.string.remaining_amount_more_today, left)
         }
     }
-
-    return res
 }
