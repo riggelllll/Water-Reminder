@@ -15,10 +15,6 @@ import com.koniukhov.waterreminder.viewmodels.MainViewModel
 
 class GenderDialogFragment : DialogFragment() {
 
-    companion object {
-        const val TAG = "GenderDialog"
-    }
-
     private var _binding: GenderDialogFragmentBinding? = null
     private val binding get() = _binding!!
 
@@ -58,6 +54,10 @@ class GenderDialogFragment : DialogFragment() {
             }
             dismiss()
         }
+    }
+
+    companion object {
+        const val TAG = "GenderDialog"
     }
     override fun onDestroyView() {
         super.onDestroyView()
