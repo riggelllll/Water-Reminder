@@ -52,7 +52,10 @@ class MonthlyStatisticsFragment : Fragment() {
         val chart = binding.chart
         chart.description.isEnabled = false
         chart.legend.isEnabled = false
-        chart.axisRight.isEnabled = false
+        chart.axisRight.setDrawLabels(false)
+        chart.axisRight.axisMinimum = 0f
+        chart.axisRight.axisMaximum = 100f
+        chart.axisRight.labelCount = 5
         chart.axisLeft.axisMinimum = 0f
         chart.axisLeft.axisMaximum = 100f
         chart.axisLeft.labelCount = 5
