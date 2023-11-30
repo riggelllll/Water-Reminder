@@ -57,6 +57,7 @@ object WorkerUtils{
             .setPriority(NotificationCompat.PRIORITY_HIGH)
             .setVibrate(LongArray(0))
             .setContentIntent(pendingIntent)
+            .setAutoCancel(true)
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
             if (ContextCompat.checkSelfPermission(
