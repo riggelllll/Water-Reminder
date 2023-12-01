@@ -88,7 +88,7 @@
                         android:id="@+id/water_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="numberDecimal"
+                        android:inputType="number"
                         android:layout_toEndOf="@id/drink_ware_icon"
                         android:layout_centerVertical="true"/>
 
