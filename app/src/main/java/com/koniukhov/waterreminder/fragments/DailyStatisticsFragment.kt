@@ -58,10 +58,12 @@ class DailyStatisticsFragment : Fragment() {
     }
 
     private fun showHint(){
-        if (sharedViewModel.waterAmount.value!! > 0){
-            binding.hint.visibility = View.INVISIBLE
-        }else{
-            binding.hint.visibility = View.VISIBLE
+        if (sharedViewModel.waterAmount.value != null){
+            if (sharedViewModel.waterAmount.value!! > 0){
+                binding.hint.visibility = View.INVISIBLE
+            }else{
+                binding.hint.visibility = View.VISIBLE
+            }
         }
     }
 }
