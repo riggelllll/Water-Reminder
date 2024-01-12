@@ -7,6 +7,11 @@ fun isBetweenLocalTime(now: LocalTime, start: LocalTime, end: LocalTime): Boolea
     return now.isAfter(start) && now.isBefore(end)
 }
 
+/**
+ * Returns the string equals format Year-Month ex (2024-01).
+ *
+ * @param date current date.
+ */
 fun yearMonthFormat(date: LocalDate): String{
-    return "" + date.year + "-" + date.monthValue
+    return date.toString().substring(0, 7)
 }
