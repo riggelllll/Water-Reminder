@@ -37,7 +37,6 @@ class DailyWaterInstrumentedTest {
             .createFromAsset("database/water_reminder.db")
             .build()
         dailyWaterDao = dataBase.dailyWaterDao()
-
     }
 
     @After
@@ -86,7 +85,7 @@ class DailyWaterInstrumentedTest {
     }
 
     @Test
-    fun checkItemsEqualByMonth() = runTest{
+    fun checkItemsEqualByMonthOctober() = runTest{
         val item1 = DailyWater(null, 200, LocalTime.of(7, 30).toString(), LocalDate.of(2023, 10, 3).toString(), "icon")
         val item2 = DailyWater(null, 300, LocalTime.of(10, 20).toString(), LocalDate.of(2023, 10, 3).toString(), "icon")
         val item3 = DailyWater(null, 150, LocalTime.of(15, 12).toString(), LocalDate.of(2023, 3, 4).toString(), "icon")
@@ -95,9 +94,24 @@ class DailyWaterInstrumentedTest {
         dailyWaterDao.addDailyWater(item2)
         dailyWaterDao.addDailyWater(item3)
 
-        dailyWater = dailyWaterDao.getAllByMonth(yearMonthFormat(LocalDate.of(2023, 10, 11)))
+        dailyWater = dailyWaterDao.getAllByMonth(yearMonthFormat(LocalDate.of(2023, 10, 11))).first()
 
         assertThat(dailyWater.size, equalTo(2))
+    }
+
+    @Test
+    fun checkItemsEqualByMonthJanuary() = runTest{
+        val item1 = DailyWater(null, 200, LocalTime.of(7, 30).toString(), LocalDate.of(2023, 10, 3).toString(), "icon")
+        val item2 = DailyWater(null, 300, LocalTime.of(10, 20).toString(), LocalDate.of(2023, 10, 3).toString(), "icon")
+        val item3 = DailyWater(null, 150, LocalTime.of(15, 12).toString(), LocalDate.of(2023, 1, 4).toString(), "icon")
+
+        dailyWaterDao.addDailyWater(item1)
+        dailyWaterDao.addDailyWater(item2)
+        dailyWaterDao.addDailyWater(item3)
+
+        dailyWater = dailyWaterDao.getAllByMonth(yearMonthFormat(LocalDate.of(2023, 1, 11))).first()
+
+        assertThat(dailyWater.size, equalTo(1))
     }
 
 
