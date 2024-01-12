@@ -1,7 +1,7 @@
 package com.koniukhov.waterreminder
 
 import com.koniukhov.waterreminder.data.user.Gender
-import com.koniukhov.waterreminder.utilities.WaterHelper.Companion.calculateWaterAmount
+import com.koniukhov.waterreminder.utilities.WaterHelper.calculateWaterAmount
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.Test
