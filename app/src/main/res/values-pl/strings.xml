@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Bilans wodny</string>
+
+    <string name="home_label">Dom</string>
+    <string name="statistics_label">Statystyka</string>
+    <string name="settings_label">Ustawienia</string>
+    <string name="btn_next_text">Dalej</string>
+    <string name="starter_intro_text">Aby obliczyć ilość spożywanej wody, należy podać kilka informacji o sobie.</string>
+    <string name="starter_intro_title">Twój osobisty towarzysz</string>
+    <string name="male_text">Mężczyzna</string>
+    <string name="female_text">Kobieta</string>
+    <string name="starter_gender_title">Jaka jest twoja płeć</string>
+    <string name="starter_weight_title">Twoja waga</string>
+    <string name="starter_wakeup_title">Czas pobudki</string>
+    <string name="starter_bed_time_title">Czas spać</string>
+
+    <string name="notification_title">Czas napić się wody</string>
+    <string name="notification_text">Proszę wypić wymaganą ilość wody.</string>
+
+    <string name="permission_granted">Otrzymano pozwolenie</string>
+    <string name="permission_denied">Odmowa pozwolenia</string>
+    <string name="water_limit_title">Limit wody</string>
+    <string name="water_limit_value">%s ml</string>
+    <string name="need_a_reminder_title">Potrzebujesz przypomnienia?</string>
+    <string name="reminder_interval_title">Interwał przypomnienia</string>
+    <string name="remind_interval_value">%s h</string>
+    <string name="weight_value">%s kg</string>
+    <string name="change_reminder_interval_title">Zmień interwał przypomnienia</string>
+    <string name="change_water_limit_title">Zmień limit wody</string>
+    <string name="change_gender_title">Zmień płeć</string>
+    <string name="change_weight_title">Zmień wagę</string>
+    <string name="change_wake_up_time_title">Zmień godzinę budzenia</string>
+    <string name="change_bed_time_title">Zmień porę snu</string>
+
+    <string name="dialog_save_btn">Ratować</string>
+    <string name="dialog_cancel_btn">Anulować</string>
+    <string name="dialog_close_btn">Zamknąć</string>
+
+    <string name="add_custom_water_amount">Dodaj ilość wypijanej wody</string>
+
+    <string name="remaining_percentage_today">%d%% Dzisiaj</string>
+    <string name="remaining_amount_today">%d ml pozostało do picia</string>
+    <string name="remaining_amount_more_today">%d ml więcej niż potrzeba</string>
+    <string name="goal_is_reached">Osiągnąłeś swój cel</string>
+
+    <string name="toast_enter_amount_of_water">Podaj ilość wypijanej wody</string>
+
+    <string name="volume_format">%d ml</string>
+    <string name="switch_cup">Zmień kubek</string>
+
+    <string name="daily_tab">Codziennie</string>
+    <string name="monthly_tab">Miesięczny</string>
+    <string name="daily_hint">Napij się wody i wówczas pojawi się tutaj odpowiedni wpis.</string>
+</resources>
