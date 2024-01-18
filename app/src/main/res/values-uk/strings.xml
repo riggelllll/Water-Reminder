@@ -1,0 +1,54 @@
+<resources>
+    <string name="app_name">Водний баланс</string>
+
+    <string name="home_label">Головна</string>
+    <string name="statistics_label">Статистика</string>
+    <string name="settings_label">Налаштування</string>
+    <string name="btn_next_text">Далі</string>
+    <string name="starter_intro_text">Щоб розрахувати кількість води, яку ви споживаєте, ви повинні надати певну інформацію про себе.</string>
+    <string name="starter_intro_title">Ваш особистий супутник</string>
+    <string name="male_text">Чоловік</string>
+    <string name="female_text">Жінка</string>
+    <string name="starter_gender_title">Ваша стать</string>
+    <string name="starter_weight_title">Ваша вага</string>
+    <string name="starter_wakeup_title">Час пробудження</string>
+    <string name="starter_bed_time_title">Час сну</string>
+
+    <string name="notification_title">Час пити воду</string>
+    <string name="notification_text">Будь ласка, випийте необхідну кількість води.</string>
+
+    <string name="permission_granted">Дозвіл надано</string>
+    <string name="permission_denied">У дозволі відмовлено</string>
+    <string name="water_limit_title">Ліміт води</string>
+    <string name="water_limit_value">%s мл</string>
+    <string name="need_a_reminder_title">Потрібне нагадування?</string>
+    <string name="reminder_interval_title">Інтервал нагадування</string>
+    <string name="remind_interval_value">%s г</string>
+    <string name="weight_value">%s кг</string>
+    <string name="change_reminder_interval_title">Змінити інтервал нагадування</string>
+    <string name="change_water_limit_title">Змінити ліміт води</string>
+    <string name="change_gender_title">Змінити стать</string>
+    <string name="change_weight_title">Змінити вагу</string>
+    <string name="change_wake_up_time_title">Змінити час пробудження</string>
+    <string name="change_bed_time_title">Змінити час сну</string>
+
+    <string name="dialog_save_btn">Зберегти</string>
+    <string name="dialog_cancel_btn">Скасувати</string>
+    <string name="dialog_close_btn">Закрити</string>
+
+    <string name="add_custom_water_amount">Додайте кількість випитої води</string>
+
+    <string name="remaining_percentage_today">%d%% Сьогодні</string>
+    <string name="remaining_amount_today">%d мл залишилося до мети</string>
+    <string name="remaining_amount_more_today">%d мл більше, ніж потрібно</string>
+    <string name="goal_is_reached">Ви досягли своєї мети</string>
+
+    <string name="toast_enter_amount_of_water">Введіть кількість випитої води</string>
+
+    <string name="volume_format">%d мл</string>
+    <string name="switch_cup">Поміняйте чашку</string>
+
+    <string name="daily_tab">Щодня</string>
+    <string name="monthly_tab">Щомісяця</string>
+    <string name="daily_hint">Випийте води, і тут з\'явиться відповідний запис</string>
+</resources>
