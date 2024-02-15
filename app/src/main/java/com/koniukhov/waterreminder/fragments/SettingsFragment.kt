@@ -18,8 +18,10 @@ import com.koniukhov.waterreminder.dialogs.GenderDialogFragment
 import com.koniukhov.waterreminder.dialogs.ReminderIntervalDialogFragment
 import com.koniukhov.waterreminder.dialogs.WaterLimitDialogFragment
 import com.koniukhov.waterreminder.dialogs.WeightDialogFragment
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_BED_HOUR
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_MINUTE
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_WAKE_UP_HOUR
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
-import com.koniukhov.waterreminder.viewmodels.StarterViewModel
 import kotlinx.coroutines.launch
 
 private const val WAKE_UP_TIME_TAG = "WakeUpTimeDialog"
@@ -33,10 +35,10 @@ class SettingsFragment : Fragment() {
         MainViewModel.MainViewModelFactory(UserDataStore(requireContext().dataStore), requireActivity().application)
     }
 
-    private var wakeUpHour: Int = StarterViewModel.DEFAULT_WAKE_UP_HOUR
-    private var wakeUpMinute: Int = StarterViewModel.DEFAULT_MINUTE
-    private var bedTimeHour: Int = StarterViewModel.DEFAULT_BED_HOUR
-    private var bedTimeMinute: Int = StarterViewModel.DEFAULT_MINUTE
+    private var wakeUpHour: Int = DEFAULT_WAKE_UP_HOUR
+    private var wakeUpMinute: Int = DEFAULT_MINUTE
+    private var bedTimeHour: Int = DEFAULT_BED_HOUR
+    private var bedTimeMinute: Int = DEFAULT_MINUTE
 
     override fun onCreateView(
         inflater: LayoutInflater,
