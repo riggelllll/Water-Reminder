@@ -8,6 +8,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
 import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_BED_HOUR
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_MINUTE
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_REMINDER_INTERVAL
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_SEX_ALPHA
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_WAKE_UP_HOUR
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_WEIGHT
 import com.koniukhov.waterreminder.utilities.WaterHelper
 import com.koniukhov.waterreminder.utilities.WorkerUtils
 import kotlinx.coroutines.launch
@@ -126,24 +132,5 @@ class StarterViewModel(private val dataStore: UserDataStore,
             }
             throw IllegalArgumentException("Unknown ViewModel class")
         }
-    }
-    companion object{
-        const val DEFAULT_REMINDER_INTERVAL = 2
-        const val DEFAULT_WEIGHT = 60
-        const val DEFAULT_WAKE_UP_HOUR = 6
-        const val DEFAULT_BED_HOUR = 22
-        const val DEFAULT_MINUTE = 0
-
-        const val HOUR_MIN_VALUE = 0
-        const val HOUR_MAX_VALUE = 23
-        const val MINUTE_MAX_VALUE = 59
-
-        const val WEIGHT_MIN = 1
-        const val WEIGHT_MAX = 200
-
-        const val WAKE_UP_EXTRA = "wakeUpTime"
-        const val BED_TIME_EXTRA = "bedTime"
-
-        const val DEFAULT_SEX_ALPHA = 0.5f
     }
 }
