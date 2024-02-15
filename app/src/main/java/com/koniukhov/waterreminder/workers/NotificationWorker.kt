@@ -3,13 +3,13 @@ package com.koniukhov.waterreminder.workers
 import android.content.Context
 import androidx.work.Worker
 import androidx.work.WorkerParameters
+import com.koniukhov.waterreminder.utilities.Constants.BED_TIME_EXTRA
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_BED_HOUR
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_MINUTE
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_WAKE_UP_HOUR
+import com.koniukhov.waterreminder.utilities.Constants.WAKE_UP_EXTRA
 import com.koniukhov.waterreminder.utilities.WorkerUtils.makeNotification
 import com.koniukhov.waterreminder.utilities.isBetweenLocalTime
-import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.BED_TIME_EXTRA
-import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.DEFAULT_BED_HOUR
-import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.DEFAULT_MINUTE
-import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.DEFAULT_WAKE_UP_HOUR
-import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.WAKE_UP_EXTRA
 import java.time.LocalTime
 
 

@@ -19,7 +19,6 @@ import androidx.work.PeriodicWorkRequest
 import androidx.work.WorkManager
 import com.koniukhov.waterreminder.MainActivity
 import com.koniukhov.waterreminder.R
-import com.koniukhov.waterreminder.viewmodels.StarterViewModel
 import com.koniukhov.waterreminder.workers.NotificationWorker
 import com.koniukhov.waterreminder.workers.NotificationWorker.Companion.NAME
 import java.time.LocalTime
@@ -81,8 +80,8 @@ object WorkerUtils{
 
         val data = Data.Builder()
         with(data) {
-            putInt(StarterViewModel.WAKE_UP_EXTRA, wakeUpTime.toSecondOfDay())
-            putInt(StarterViewModel.BED_TIME_EXTRA, bedTime.toSecondOfDay())
+            putInt(Constants.WAKE_UP_EXTRA, wakeUpTime.toSecondOfDay())
+            putInt(Constants.BED_TIME_EXTRA, bedTime.toSecondOfDay())
         }
 
         periodicWork.setInputData(data.build())

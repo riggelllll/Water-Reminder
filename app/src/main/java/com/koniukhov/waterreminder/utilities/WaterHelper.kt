@@ -1,10 +1,10 @@
 package com.koniukhov.waterreminder.utilities
 
 import com.koniukhov.waterreminder.data.user.Gender
+import com.koniukhov.waterreminder.utilities.Constants.FEMALE_COEFFICIENT
+import com.koniukhov.waterreminder.utilities.Constants.MALE_COEFFICIENT
 
 object WaterHelper{
-    private const val MALE_COEFFICIENT = 40
-    private const val FEMALE_COEFFICIENT = 30
 
     fun calculateWaterAmount(gender: Gender, weight: Int): Int{
         return if (gender == Gender.MALE){

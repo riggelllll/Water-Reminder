@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
-        <import type="com.koniukhov.waterreminder.viewmodels.StarterViewModel"/>
+        <import type="com.koniukhov.waterreminder.utilities.Constants"/>
         <variable
             name="viewModel"
             type="com.koniukhov.waterreminder.viewmodels.MainViewModel" />
@@ -58,8 +58,8 @@
                         android:id="@+id/wake_up_hour"
                         android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                        app:maxValue="@{StarterViewModel.HOUR_MAX_VALUE}"
-                        app:minValue="@{StarterViewModel.HOUR_MIN_VALUE}"
+                        app:maxValue="@{Constants.HOUR_MAX_VALUE}"
+                        app:minValue="@{Constants.HOUR_MIN_VALUE}"
                         app:value='@{fragment.time.hour}'
                         android:layout_toEndOf="@id/time_icon"/>
 
@@ -69,8 +69,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/base_margin"
                         android:layout_toRightOf="@id/wake_up_hour"
-                        app:maxValue="@{StarterViewModel.MINUTE_MAX_VALUE}"
-                        app:minValue="@{StarterViewModel.HOUR_MIN_VALUE}"
+                        app:maxValue="@{Constants.MINUTE_MAX_VALUE}"
+                        app:minValue="@{Constants.HOUR_MIN_VALUE}"
                         app:value='@{fragment.time.minute}'/>
                 </RelativeLayout>
 

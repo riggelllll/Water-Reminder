@@ -7,7 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
-import com.koniukhov.waterreminder.viewmodels.StarterViewModel.Companion.DEFAULT_REMINDER_INTERVAL
+import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_REMINDER_INTERVAL
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import java.time.LocalTime
