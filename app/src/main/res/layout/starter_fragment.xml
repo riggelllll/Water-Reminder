@@ -5,6 +5,7 @@
     <data>
         <import type="android.view.View"/>
         <import type="com.koniukhov.waterreminder.data.user.Gender"/>
+        <import type="com.koniukhov.waterreminder.utilities.Constants"/>
         <variable
             name="viewModel"
             type="com.koniukhov.waterreminder.viewmodels.StarterViewModel" />
@@ -154,9 +155,9 @@
                     android:layout_height="@dimen/intro_gender_image_size"
                     android:layout_gravity="center"
                     android:descendantFocusability="blocksDescendants"
-                    app:minValue="@{viewModel.WEIGHT_MIN}"
-                    app:maxValue="@{viewModel.WEIGHT_MAX}"
-                    app:value="@{viewModel.DEFAULT_WEIGHT}"
+                    app:minValue="@{Constants.WEIGHT_MIN}"
+                    app:maxValue="@{Constants.WEIGHT_MAX}"
+                    app:value="@{Constants.DEFAULT_WEIGHT}"
                     android:onValueChange='@{(picker, old, new) -> viewModel.setWeight(new)}'/>
             </LinearLayout>
         </LinearLayout>
@@ -219,9 +220,9 @@
                 android:id="@+id/wake_up_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:minValue="@{viewModel.HOUR_MIN_VALUE}"
-                app:maxValue="@{viewModel.HOUR_MAX_VALUE}"
-                app:value="@{viewModel.DEFAULT_WAKE_UP_HOUR}"
+                app:minValue="@{Constants.HOUR_MIN_VALUE}"
+                app:maxValue="@{Constants.HOUR_MAX_VALUE}"
+                app:value="@{Constants.DEFAULT_WAKE_UP_HOUR}"
                 android:onValueChange='@{(picker, old, new) -> viewModel.setWakeUpHour(new)}'/>
             <NumberPicker
                 android:id="@+id/wake_up_minute"
@@ -229,9 +230,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/wake_up_hour"
                 android:layout_marginLeft="@dimen/base_margin"
-                app:minValue="@{viewModel.HOUR_MIN_VALUE}"
-                app:maxValue="@{viewModel.MINUTE_MAX_VALUE}"
-                app:value="@{viewModel.DEFAULT_MINUTE}"
+                app:minValue="@{Constants.HOUR_MIN_VALUE}"
+                app:maxValue="@{Constants.MINUTE_MAX_VALUE}"
+                app:value="@{Constants.DEFAULT_MINUTE}"
                 android:onValueChange='@{(picker, old, new) -> viewModel.setWakeUpMinute(new)}'/>
         </RelativeLayout>
 
@@ -281,9 +282,9 @@
                 android:id="@+id/bed_time_hour"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                app:minValue="@{viewModel.HOUR_MIN_VALUE}"
-                app:maxValue="@{viewModel.HOUR_MAX_VALUE}"
-                app:value="@{viewModel.DEFAULT_BED_HOUR}"
+                app:minValue="@{Constants.HOUR_MIN_VALUE}"
+                app:maxValue="@{Constants.HOUR_MAX_VALUE}"
+                app:value="@{Constants.DEFAULT_BED_HOUR}"
                 android:onValueChange='@{(picker, old, new) -> viewModel.setBedTimeHour(new)}'/>
             <NumberPicker
                 android:id="@+id/bed_time_minute"
@@ -291,9 +292,9 @@
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@id/bed_time_hour"
                 android:layout_marginLeft="@dimen/base_margin"
-                app:minValue="@{viewModel.HOUR_MIN_VALUE}"
-                app:maxValue="@{viewModel.MINUTE_MAX_VALUE}"
-                app:value="@{viewModel.DEFAULT_MINUTE}"
+                app:minValue="@{Constants.HOUR_MIN_VALUE}"
+                app:maxValue="@{Constants.MINUTE_MAX_VALUE}"
+                app:value="@{Constants.DEFAULT_MINUTE}"
                 android:onValueChange='@{(picker, old, new) -> viewModel.setBedTimeMinute(new)}'/>
         </RelativeLayout>
 
