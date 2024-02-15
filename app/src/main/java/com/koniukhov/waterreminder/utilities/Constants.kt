@@ -1,6 +1,9 @@
 package com.koniukhov.waterreminder.utilities
 
 object Constants {
+    const val MALE_COEFFICIENT = 40
+    const val FEMALE_COEFFICIENT = 30
+
     const val DEFAULT_REMINDER_INTERVAL = 2
     const val DEFAULT_WEIGHT = 60
     const val DEFAULT_WAKE_UP_HOUR = 6
