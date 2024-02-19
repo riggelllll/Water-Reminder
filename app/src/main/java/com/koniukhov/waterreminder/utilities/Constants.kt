@@ -18,9 +18,9 @@ object Constants {
     const val WEIGHT_MAX = 200
     const val WEIGHT_STEP = 1
 
-    const val WATER_LIMIT_FROM = 500
-    const val WATER_LIMIT_TO = 10000
-    const val WATER_LIMIT_STEP = 10
+    const val WATER_LIMIT_FROM = 500F
+    const val WATER_LIMIT_TO = 10000F
+    const val WATER_LIMIT_STEP = 10F
 
     const val WAKE_UP_EXTRA = "wakeUpTime"
     const val BED_TIME_EXTRA = "bedTime"
