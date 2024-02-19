@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.slider.Slider
 import com.google.android.material.timepicker.MaterialTimePicker
 import com.google.android.material.timepicker.TimeFormat
 import com.koniukhov.waterreminder.R
@@ -16,11 +18,13 @@ import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.SettingsFragmentBinding
 import com.koniukhov.waterreminder.dialogs.GenderDialogFragment
 import com.koniukhov.waterreminder.dialogs.ReminderIntervalDialogFragment
-import com.koniukhov.waterreminder.dialogs.WaterLimitDialogFragment
 import com.koniukhov.waterreminder.dialogs.WeightDialogFragment
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_BED_HOUR
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_MINUTE
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_WAKE_UP_HOUR
+import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_FROM
+import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_STEP
+import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_TO
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -90,8 +94,25 @@ class SettingsFragment : Fragment() {
     }
 
     fun showWaterLimitDialog(){
-        WaterLimitDialogFragment().show(
-            childFragmentManager, WaterLimitDialogFragment.TAG)
+        val dialogView = layoutInflater.inflate(R.layout.water_limit_dialog_fragment, null)
+        val slider = dialogView.findViewById<Slider>(R.id.slider)
+
+        slider.valueFrom = WATER_LIMIT_FROM
+        slider.valueTo = WATER_LIMIT_TO
+        slider.stepSize = WATER_LIMIT_STEP
+        slider.value = sharedViewModel.userPreferences.waterLimitPerDay.toFloat()
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .setTitle(getString(R.string.change_water_limit_title))
+            .setPositiveButton(getString(R.string.dialog_save_btn)){ dialog, _ ->
+                sharedViewModel.changeWaterLimit(slider.value.toInt())
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.dialog_cancel_btn)){ dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     fun showChangeGenderDialog(){
