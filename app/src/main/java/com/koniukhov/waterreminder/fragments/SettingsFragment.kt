@@ -1,6 +1,7 @@
 package com.koniukhov.waterreminder.fragments
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.SettingsFragmentBinding
-import com.koniukhov.waterreminder.dialogs.GenderDialogFragment
 import com.koniukhov.waterreminder.dialogs.WeightDialogFragment
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_BED_HOUR
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_MINUTE
@@ -27,6 +27,7 @@ import com.koniukhov.waterreminder.utilities.Constants.REMINDER_INTERVAL_TO
 import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_FROM
 import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_STEP
 import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_TO
+import com.koniukhov.waterreminder.utilities.WaterHelper
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
 import kotlinx.coroutines.launch
 
@@ -136,8 +137,42 @@ class SettingsFragment : Fragment() {
     }
 
     fun showChangeGenderDialog(){
-        GenderDialogFragment().show(
-            childFragmentManager, GenderDialogFragment.TAG)
+        val genders = arrayOf(getString(R.string.male_text), getString(R.string.female_text))
+        var selectedIndex = if (sharedViewModel.userPreferences.gender == Gender.MALE) {
+            Gender.MALE.gender
+        } else {
+            Gender.FEMALE.gender
+        }
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(getString(R.string.change_gender_title))
+            .setSingleChoiceItems(genders, selectedIndex) { _, which ->
+                selectedIndex = which
+            }
+            .setPositiveButton(getString(R.string.dialog_save_btn)){ dialog, _ ->
+                if (selectedIndex == Gender.MALE.gender){
+                    sharedViewModel.changeGender(Gender.MALE)
+                    sharedViewModel.changeWaterLimit(
+                        WaterHelper.calculateWaterAmount(
+                            Gender.MALE,
+                            sharedViewModel.userPreferences.weight
+                        )
+                    )
+                }else{
+                    sharedViewModel.changeGender(Gender.FEMALE)
+                    sharedViewModel.changeWaterLimit(
+                        WaterHelper.calculateWaterAmount(
+                            Gender.FEMALE,
+                            sharedViewModel.userPreferences.weight
+                        )
+                    )
+                }
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.dialog_cancel_btn)){ dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     fun showWeightDialog(){
