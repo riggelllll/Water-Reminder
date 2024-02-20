@@ -16,6 +16,7 @@ import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.SettingsFragmentBinding
+import com.koniukhov.waterreminder.databinding.WaterLimitDialogFragmentBinding
 import com.koniukhov.waterreminder.databinding.WeightDialogFragmentBinding
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_BED_HOUR
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_MINUTE
@@ -117,19 +118,17 @@ class SettingsFragment : Fragment() {
     }
 
     fun showWaterLimitDialog(){
-        val dialogView = layoutInflater.inflate(R.layout.water_limit_dialog_fragment, null)
-        val slider = dialogView.findViewById<Slider>(R.id.slider)
-
-        slider.valueFrom = WATER_LIMIT_FROM
-        slider.valueTo = WATER_LIMIT_TO
-        slider.stepSize = WATER_LIMIT_STEP
-        slider.value = sharedViewModel.userPreferences.waterLimitPerDay.toFloat()
+        val binding = WaterLimitDialogFragmentBinding.inflate(layoutInflater)
+        binding.slider.valueFrom = WATER_LIMIT_FROM
+        binding.slider.valueTo = WATER_LIMIT_TO
+        binding.slider.stepSize = WATER_LIMIT_STEP
+        binding.slider.value = sharedViewModel.userPreferences.waterLimitPerDay.toFloat()
 
         MaterialAlertDialogBuilder(requireContext())
-            .setView(dialogView)
+            .setView(binding.root)
             .setTitle(getString(R.string.change_water_limit_title))
             .setPositiveButton(getString(R.string.dialog_save_btn)){ dialog, _ ->
-                sharedViewModel.changeWaterLimit(slider.value.toInt())
+                sharedViewModel.changeWaterLimit(binding.slider.value.toInt())
                 dialog.dismiss()
             }
             .setNegativeButton(getString(R.string.dialog_cancel_btn)){ dialog, _ ->
