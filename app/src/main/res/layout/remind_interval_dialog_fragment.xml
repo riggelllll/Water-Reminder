@@ -1,55 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
-    <data>
-        <import type="com.koniukhov.waterreminder.utilities.Constants"/>
-    </data>
-    <com.google.android.material.card.MaterialCardView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:layout_width="wrap_content"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <com.google.android.material.slider.Slider
+        android:id="@+id/slider"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/radius">
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/dialog_padding">
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/TextAppearance.Material3.TitleMedium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/change_reminder_interval_title"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-            <com.google.android.material.slider.Slider
-                android:id="@+id/slider"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/textView2"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginTop="@dimen/settings_margin"
-                android:valueFrom="@{Constants.REMINDER_INTERVAL_FROM}"
-                android:valueTo="@{Constants.REMINDER_INTERVAL_TO}"
-                android:stepSize="@{Constants.REMINDER_INTERVAL_STEP}"/>
-            <Button
-                android:id="@+id/save_btn"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_save_btn"
-                app:layout_constraintTop_toBottomOf="@id/slider"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-            <Button
-                android:id="@+id/cancel_btn"
-                style="@style/Widget.Material3.Button.TextButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/dialog_cancel_btn"
-                app:layout_constraintTop_toBottomOf="@id/slider"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/save_btn"/>
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </com.google.android.material.card.MaterialCardView>
-</layout>
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="@dimen/settings_margin"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
