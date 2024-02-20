@@ -17,11 +17,13 @@ import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.SettingsFragmentBinding
 import com.koniukhov.waterreminder.dialogs.GenderDialogFragment
-import com.koniukhov.waterreminder.dialogs.ReminderIntervalDialogFragment
 import com.koniukhov.waterreminder.dialogs.WeightDialogFragment
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_BED_HOUR
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_MINUTE
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_WAKE_UP_HOUR
+import com.koniukhov.waterreminder.utilities.Constants.REMINDER_INTERVAL_FROM
+import com.koniukhov.waterreminder.utilities.Constants.REMINDER_INTERVAL_STEP
+import com.koniukhov.waterreminder.utilities.Constants.REMINDER_INTERVAL_TO
 import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_FROM
 import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_STEP
 import com.koniukhov.waterreminder.utilities.Constants.WATER_LIMIT_TO
@@ -89,8 +91,26 @@ class SettingsFragment : Fragment() {
     }
 
     fun showRemindIntervalDialog(){
-        ReminderIntervalDialogFragment().show(
-            childFragmentManager, ReminderIntervalDialogFragment.TAG)
+        val dialogView = layoutInflater.inflate(R.layout.remind_interval_dialog_fragment, null)
+        val slider = dialogView.findViewById<Slider>(R.id.slider)
+
+        slider.valueFrom = REMINDER_INTERVAL_FROM
+        slider.valueTo = REMINDER_INTERVAL_TO
+        slider.stepSize = REMINDER_INTERVAL_STEP
+        slider.value = sharedViewModel.userPreferences.reminderInterval.toFloat()
+
+        MaterialAlertDialogBuilder(requireContext())
+            .setView(dialogView)
+            .setTitle(getString(R.string.change_reminder_interval_title))
+            .setPositiveButton(getString(R.string.dialog_save_btn)){ dialog, _ ->
+                sharedViewModel.changeReminderInterval(slider.value.toInt())
+                dialog.dismiss()
+            }
+            .setNegativeButton(getString(R.string.dialog_cancel_btn)){ dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
+
     }
 
     fun showWaterLimitDialog(){
