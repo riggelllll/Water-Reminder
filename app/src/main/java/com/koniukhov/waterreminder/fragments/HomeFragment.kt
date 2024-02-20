@@ -6,21 +6,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.koniukhov.waterreminder.R
+import com.koniukhov.waterreminder.adapters.DrinkWareAdapter
+import com.koniukhov.waterreminder.data.drinkware.DrinkWareIcons
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
+import com.koniukhov.waterreminder.databinding.DrinkWareDialogFragmentBinding
 import com.koniukhov.waterreminder.databinding.HomeFragmentBinding
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.first
-import androidx.lifecycle.lifecycleScope
-import com.koniukhov.waterreminder.R
-import com.koniukhov.waterreminder.data.drinkware.DrinkWareIcons
 import com.koniukhov.waterreminder.dialogs.CustomWaterVolumeDialogFragment
-import com.koniukhov.waterreminder.dialogs.DrinkWareDialogFragment
 import com.koniukhov.waterreminder.utilities.getPercentageOfWaterDrunk
 import com.koniukhov.waterreminder.utilities.getStringAmountOfRemainingWater
 import com.koniukhov.waterreminder.utilities.getStringPercentageOfWaterDrunk
 import com.koniukhov.waterreminder.viewmodels.MainViewModel
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.stream.Collectors
 
@@ -92,7 +94,23 @@ class HomeFragment : Fragment() {
     }
 
     fun showDrinkWareDialog(){
-        DrinkWareDialogFragment().show(childFragmentManager, DrinkWareDialogFragment.TAG)
+        val binding = DrinkWareDialogFragmentBinding.inflate(layoutInflater)
+        val adapter = DrinkWareAdapter(requireContext()){
+            sharedViewModel.updateDrinkWare(it)
+        }
+        binding.drinkWareRecycler.adapter = adapter
+        lifecycleScope.launch(Dispatchers.IO) {
+            sharedViewModel.allDrinkWare.collect {
+                adapter.submitList(it)
+            }
+        }
+        MaterialAlertDialogBuilder(requireContext())
+            .setView(binding.root)
+            .setTitle(getString(R.string.switch_cup))
+            .setNegativeButton(getString(R.string.dialog_cancel_btn)){ dialog, _ ->
+                dialog.dismiss()
+            }
+            .show()
     }
 
     fun saveWater(){
