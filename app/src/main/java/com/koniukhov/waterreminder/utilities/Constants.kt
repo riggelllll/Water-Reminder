@@ -27,7 +27,7 @@ object Constants {
 
     const val DEFAULT_SEX_ALPHA = 0.5f
 
-    const val REMINDER_INTERVAL_FROM = 1
-    const val REMINDER_INTERVAL_TO = 12
-    const val REMINDER_INTERVAL_STEP = 1
+    const val REMINDER_INTERVAL_FROM = 1F
+    const val REMINDER_INTERVAL_TO = 12F
+    const val REMINDER_INTERVAL_STEP = 1F
 }
