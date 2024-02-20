@@ -6,6 +6,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import androidx.work.WorkManager
+import com.google.firebase.crashlytics.ktx.crashlytics
+import com.google.firebase.ktx.Firebase
 import com.koniukhov.waterreminder.data.dailywater.DailyWater
 import com.koniukhov.waterreminder.data.drinkware.DrinkWare
 import com.koniukhov.waterreminder.data.user.Gender
@@ -77,6 +79,7 @@ class MainViewModel(private val dataStore: UserDataStore, application: Applicati
         viewModelScope.launch(Dispatchers.IO) {
             userFlow.collect {
                 userPreferences = it
+                Firebase.crashlytics.log(userPreferences.toString())
             }
         }
     }
