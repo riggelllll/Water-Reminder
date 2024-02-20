@@ -10,9 +10,8 @@ import com.koniukhov.waterreminder.R
 import com.koniukhov.waterreminder.data.drinkware.DrinkWare
 import com.koniukhov.waterreminder.data.drinkware.DrinkWareIcons
 import com.koniukhov.waterreminder.databinding.DrinkWareItemBinding
-import com.koniukhov.waterreminder.viewmodels.MainViewModel
 
-class DrinkWareAdapter(private val context: Context, private val sharedViewModel: MainViewModel) : ListAdapter<DrinkWare, DrinkWareAdapter.DrinkWareViewHolder>(DiffCallback) {
+class DrinkWareAdapter(private val context: Context, private val onClick: (DrinkWare) -> Unit) : ListAdapter<DrinkWare, DrinkWareAdapter.DrinkWareViewHolder>(DiffCallback) {
 
     class DrinkWareViewHolder(private var binding: DrinkWareItemBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(item: DrinkWare, context: Context){
@@ -34,7 +33,7 @@ class DrinkWareAdapter(private val context: Context, private val sharedViewModel
         val item = getItem(position)
         holder.bind(item, context)
         holder.itemView.setOnClickListener{
-            sharedViewModel.updateDrinkWare(item.copy())
+            onClick(item.copy())
         }
     }
 
