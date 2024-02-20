@@ -49,7 +49,9 @@ class DrinkWareDialogFragment : DialogFragment() {
     }
 
     private fun initAdapter() {
-        adapter = DrinkWareAdapter(requireContext(), sharedViewModel)
+        adapter = DrinkWareAdapter(requireContext()){
+            sharedViewModel.updateDrinkWare(it)
+        }
         binding.drinkWareRecycler.adapter = adapter
         lifecycleScope.launch {
             sharedViewModel.allDrinkWare.collect {
