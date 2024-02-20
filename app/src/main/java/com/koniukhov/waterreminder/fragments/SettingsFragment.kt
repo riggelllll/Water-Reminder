@@ -15,6 +15,7 @@ import com.koniukhov.waterreminder.R
 import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
+import com.koniukhov.waterreminder.databinding.RemindIntervalDialogFragmentBinding
 import com.koniukhov.waterreminder.databinding.SettingsFragmentBinding
 import com.koniukhov.waterreminder.databinding.WaterLimitDialogFragmentBinding
 import com.koniukhov.waterreminder.databinding.WeightDialogFragmentBinding
@@ -95,19 +96,17 @@ class SettingsFragment : Fragment() {
     }
 
     fun showRemindIntervalDialog(){
-        val dialogView = layoutInflater.inflate(R.layout.remind_interval_dialog_fragment, null)
-        val slider = dialogView.findViewById<Slider>(R.id.slider)
-
-        slider.valueFrom = REMINDER_INTERVAL_FROM
-        slider.valueTo = REMINDER_INTERVAL_TO
-        slider.stepSize = REMINDER_INTERVAL_STEP
-        slider.value = sharedViewModel.userPreferences.reminderInterval.toFloat()
+        val binding = RemindIntervalDialogFragmentBinding.inflate(layoutInflater)
+        binding.slider.valueFrom = REMINDER_INTERVAL_FROM
+        binding.slider.valueTo = REMINDER_INTERVAL_TO
+        binding.slider.stepSize = REMINDER_INTERVAL_STEP
+        binding.slider.value = sharedViewModel.userPreferences.reminderInterval.toFloat()
 
         MaterialAlertDialogBuilder(requireContext())
-            .setView(dialogView)
+            .setView(binding.root)
             .setTitle(getString(R.string.change_reminder_interval_title))
             .setPositiveButton(getString(R.string.dialog_save_btn)){ dialog, _ ->
-                sharedViewModel.changeReminderInterval(slider.value.toInt())
+                sharedViewModel.changeReminderInterval(binding.slider.value.toInt())
                 dialog.dismiss()
             }
             .setNegativeButton(getString(R.string.dialog_cancel_btn)){ dialog, _ ->
