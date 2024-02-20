@@ -16,6 +16,7 @@ import com.koniukhov.waterreminder.data.user.Gender
 import com.koniukhov.waterreminder.data.user.UserDataStore
 import com.koniukhov.waterreminder.data.user.dataStore
 import com.koniukhov.waterreminder.databinding.SettingsFragmentBinding
+import com.koniukhov.waterreminder.databinding.WeightDialogFragmentBinding
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_BED_HOUR
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_MINUTE
 import com.koniukhov.waterreminder.utilities.Constants.DEFAULT_WAKE_UP_HOUR
@@ -177,19 +178,17 @@ class SettingsFragment : Fragment() {
     }
 
     fun showWeightDialog(){
-        val dialogView = layoutInflater.inflate(R.layout.weight_dialog_fragment, null)
-        val slider = dialogView.findViewById<Slider>(R.id.slider)
-
-        slider.valueFrom = WEIGHT_MIN.toFloat()
-        slider.valueTo = WEIGHT_MAX.toFloat()
-        slider.stepSize = WEIGHT_STEP.toFloat()
-        slider.value = sharedViewModel.userPreferences.weight.toFloat()
+        val binding = WeightDialogFragmentBinding.inflate(layoutInflater)
+        binding.slider.valueFrom = WEIGHT_MIN.toFloat()
+        binding.slider.valueTo = WEIGHT_MAX.toFloat()
+        binding.slider.stepSize = WEIGHT_STEP.toFloat()
+        binding.slider.value = sharedViewModel.userPreferences.weight.toFloat()
 
         MaterialAlertDialogBuilder(requireContext())
-            .setView(dialogView)
+            .setView(binding.root)
             .setTitle(getString(R.string.change_weight_title))
             .setPositiveButton(getString(R.string.dialog_save_btn)){ dialog, _ ->
-                val weight = slider.value.toInt()
+                val weight = binding.slider.value.toInt()
                 val waterLimit =
                     WaterHelper.calculateWaterAmount(sharedViewModel.userPreferences.gender, weight)
                 sharedViewModel.changeWeight(weight)
