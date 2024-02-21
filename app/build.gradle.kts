@@ -4,6 +4,8 @@ plugins {
     id("de.mannodermaus.android-junit5")
     id("org.jetbrains.kotlin.kapt")
     id("com.google.devtools.ksp")
+    id("com.google.gms.google-services")
+    id("com.google.firebase.crashlytics")
 }
 
 android {
@@ -14,8 +16,8 @@ android {
         applicationId = "com.koniukhov.waterreminder"
         minSdk = 26
         targetSdk = 34
-        versionCode = 7
-        versionName = "1.4.1"
+        versionCode = 8
+        versionName = "1.4.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -77,6 +79,10 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:32.7.2"))
+    implementation("com.google.firebase:firebase-crashlytics")
+    implementation("com.google.firebase:firebase-analytics")
 
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.9.3")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine:5.9.3")
