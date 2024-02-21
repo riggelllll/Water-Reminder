@@ -148,7 +148,7 @@ class HomeFragment : Fragment() {
         MaterialAlertDialogBuilder(requireContext())
             .setView(binding.root)
             .setTitle(getString(R.string.switch_cup))
-            .setNegativeButton(getString(R.string.dialog_cancel_btn)){ dialog, _ ->
+            .setNegativeButton(getString(R.string.dialog_close_btn)){ dialog, _ ->
                 dialog.dismiss()
             }
             .show()
